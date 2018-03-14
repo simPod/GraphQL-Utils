@@ -1,0 +1,36 @@
+{
+    "name": "simpod/graphql-utils",
+    "description": "GraphQL Utils for graphql-php",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Podlipsky",
+            "email": "simon@podlipsky.net"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^7.1",
+        "webonyx/graphql-php": "^0.11"
+    },
+    "require-dev": {
+        "doctrine/coding-standard": "^4.0",
+        "phpstan/phpstan": "^0.10",
+        "phpstan/phpstan-phpunit": "^0.10",
+        "phpstan/phpstan-strict-rules": "^0.10",
+        "phpunit/phpunit": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SimPod\\GraphQL\\Utils\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SimPod\\GraphQL\\Utils\\Tests\\": "tests/"
+        }
+    }
+}
