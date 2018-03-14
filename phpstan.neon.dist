@@ -1,0 +1,13 @@
+parameters:
+    level: max
+    paths:
+        - %currentWorkingDirectory%/src
+        - %currentWorkingDirectory%/tests
+    tmpDir: %currentWorkingDirectory%/var/phpstan
+    ignoreErrors:
+        - "~Method SimPod\\\\GraphQLUtils\\\\Error\\\\FormattedError::createFromException\\(\\) has parameter \\$\\w+ with no typehint specified~"
+
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
