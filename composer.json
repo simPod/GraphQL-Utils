@@ -14,7 +14,7 @@
     },
     "require": {
         "php": "^7.1",
-        "webonyx/graphql-php": "^0.11"
+        "webonyx/graphql-php": "^0.12"
     },
     "require-dev": {
         "doctrine/coding-standard": "^4.0",
