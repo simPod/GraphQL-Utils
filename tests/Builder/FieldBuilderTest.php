@@ -10,7 +10,7 @@ use SimPod\GraphQLUtils\Builder\FieldBuilder;
 
 final class FieldBuilderTest extends TestCase
 {
-    public function testCreateFromName() : void
+    public function testCreate() : void
     {
         $field = FieldBuilder::create('SomeField', Type::string())
             ->setDeprecationReason('Deprecated')

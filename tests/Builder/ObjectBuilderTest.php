@@ -13,7 +13,7 @@ use SimPod\GraphQLUtils\Builder\ObjectBuilder;
 
 final class ObjectBuilderTest extends TestCase
 {
-    public function testCreateFromName() : void
+    public function testCreate() : void
     {
         $description = 'To the sichuan-style nachos add ghee, noodles, buttermilk and heated herring.';
         $name        = 'SomeType';

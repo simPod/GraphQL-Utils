@@ -10,11 +10,11 @@ use SimPod\GraphQLUtils\Builder\EnumBuilder;
 
 final class EnumBuilderTest extends TestCase
 {
-    public function testCreateFromName() : void
+    public function testCreate() : void
     {
         $name = 'SomeEnum';
 
-        $builder = EnumBuilder::createFromName($name);
+        $builder = EnumBuilder::create($name);
         $object  = $builder
             ->addValue('Value1', 'EnumName')
             ->addValue('Value2', null, 'Value 2 Description')
@@ -37,6 +37,6 @@ final class EnumBuilderTest extends TestCase
     {
         $this->expectException(LogicException::class);
 
-        EnumBuilder::createFromName('Enum')->addValue('invalid-value');
+        EnumBuilder::create('Enum')->addValue('invalid-value');
     }
 }
