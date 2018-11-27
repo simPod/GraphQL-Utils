@@ -17,8 +17,10 @@ final class FormattedErrorTest extends TestCase
 
         self::assertSame(
             [
-                'message'  => 'Internal server error',
-                'category' => 'internal',
+                'message'    => 'Internal server error',
+                'extensions' => [
+                    'category' => 'internal',
+                ],
             ],
             FormattedError::createFromException($exception)
         );
@@ -32,7 +34,9 @@ final class FormattedErrorTest extends TestCase
             [
                 'debugMessage' => 'When smashing sun-dried shrimps, be sure they are room temperature.',
                 'message'      => 'Internal server error',
-                'category'     => 'internal',
+                'extensions'   => [
+                    'category' => 'internal',
+                ],
             ],
             FormattedError::createFromException($exception, true)
         );
@@ -44,8 +48,10 @@ final class FormattedErrorTest extends TestCase
 
         self::assertSame(
             [
-                'message'  => 'Try grilling smoothie jumbled with salad cream, decorateed with green curry.',
-                'category' => 'internal',
+                'message'    => 'Try grilling smoothie jumbled with salad cream, decorateed with green curry.',
+                'extensions' => [
+                    'category' => 'internal',
+                ],
             ],
             FormattedError::createFromException(
                 $exception,
@@ -72,9 +78,11 @@ final class FormattedErrorTest extends TestCase
 
         self::assertSame(
             [
-                'type'     => 'CUSTOM_ERROR',
-                'message'  => 'Error Message',
-                'category' => 'graphql',
+                'message'    => 'Error Message',
+                'extensions' => [
+                    'category' => 'graphql',
+                    'type'     => 'CUSTOM_ERROR',
+                ],
             ],
             FormattedError::createFromException($error, false)
         );

@@ -3,9 +3,9 @@ parameters:
     paths:
         - %currentWorkingDirectory%/src
         - %currentWorkingDirectory%/tests
-    tmpDir: %currentWorkingDirectory%/var/phpstan
     ignoreErrors:
-        - "~Method SimPod\\\\GraphQLUtils\\\\Error\\\\FormattedError::createFromException\\(\\) has parameter \\$\\w+ with no typehint specified~"
+        # https://github.com/webonyx/graphql-php/pull/406
+        - "~Parameter \\#1 \\$vars of class GraphQL\\\\Language\\\\AST\\\\BooleanValueNode constructor expects array<GraphQL\\\\Language\\\\AST\\\\Location\\|GraphQL\\\\Language\\\\AST\\\\NameNode\\|GraphQL\\\\Language\\\\AST\\\\NodeList\\|GraphQL\\\\Language\\\\AST\\\\SelectionSetNode\\|string\\|null>, array<string, false> given~"
 
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon

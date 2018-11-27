@@ -182,8 +182,12 @@ Error types will then be provided in your response so client can easier identify
 {
   "errors": [
     {
-      "type": "INVALID_CUSTOMER_ID_PROVIDED",
       "message": "No CustomerId provided",
-      "category": "graphql",
-      ...
+      "extensions": {
+          "type": "INVALID_CUSTOMER_ID_PROVIDED",
+          "category": "graphql"
+      }
+    }
+  ]
+}
 ```

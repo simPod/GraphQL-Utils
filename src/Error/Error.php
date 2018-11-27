@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimPod\GraphQLUtils\Error;
 
 /**
- * @inheritdoc
+ * {@inheritdoc}
  */
 abstract class Error extends \GraphQL\Error\Error
 {
