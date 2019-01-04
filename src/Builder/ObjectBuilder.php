@@ -9,6 +9,9 @@ class ObjectBuilder extends TypeBuilder
     /** @var callable|mixed[][] */
     private $fields = [];
 
+    /**
+     * @return static
+     */
     public static function create(string $name) : self
     {
         return new static($name);
@@ -16,6 +19,8 @@ class ObjectBuilder extends TypeBuilder
 
     /**
      * @param callable|mixed[][] $fields
+     *
+     * @return static
      */
     public function setFields($fields) : self
     {
