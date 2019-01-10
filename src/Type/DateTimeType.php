@@ -9,12 +9,12 @@ use DateTimeInterface;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Language\AST\ValueNode;
-use GraphQL\Type\Definition\ScalarType;
+use GraphQL\Type\Definition\CustomScalarType;
 use GraphQL\Utils\Utils;
 use InvalidArgumentException;
 use function sprintf;
 
-class DateTimeType extends ScalarType
+class DateTimeType extends CustomScalarType
 {
     private const NAME        = 'DateTime';
     private const DESCRIPTION = 'The `DateTime` scalar type represents time data, represented as an ISO-8601 encoded UTC date string.';
