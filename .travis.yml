@@ -23,26 +23,21 @@ script: ./vendor/bin/phpunit
 jobs:
     include:
         -   stage: Test
-            env: COVERAGE
+            name: Coverage
             php: 7.2
             before_script:
                 - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{.disabled,}
                 - if [[ ! $(php -m | grep -si xdebug) ]]; then echo "xdebug required for coverage"; exit 1; fi
-            script:
-                - ./vendor/bin/phpunit --coverage-clover ./build/logs/clover.xml
+            script: ./vendor/bin/phpunit --coverage-clover ./build/logs/clover.xml
             after_script:
                 - wget https://github.com/scrutinizer-ci/ocular/releases/download/1.5.2/ocular.phar
                 - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
         -   stage: Code Quality
-            env: CODING_STANDARD
+            name: Coding Standard
             php: 7.2
-            script:
-                - ./vendor/bin/phpcs
-
-        -   stage: Code Quality
-            env: STATIC_ANALYSIS
+            script: ./vendor/bin/phpcs
+        -   name: Static Analysis
             php: 7.2
-            script:
-                - ./vendor/bin/phpstan analyse
+            script: ./vendor/bin/phpstan analyse
 
