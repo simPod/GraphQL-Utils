@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace SimPod\GraphQLUtils\Builder;
 
 use LogicException;
-use function preg_match;
+use function Safe\preg_match;
 
 class EnumBuilder extends TypeBuilder
 {

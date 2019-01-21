@@ -13,9 +13,9 @@ use GraphQL\Type\Definition\CustomScalarType;
 use GraphQL\Utils\Utils;
 use InvalidArgumentException;
 use function assert;
-use function preg_match;
+use function Safe\preg_match;
+use function Safe\substr;
 use function strpos;
-use function substr;
 
 class DateTimeType extends CustomScalarType
 {

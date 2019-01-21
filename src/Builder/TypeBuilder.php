@@ -6,7 +6,7 @@ namespace SimPod\GraphQLUtils\Builder;
 
 use GraphQL\Type\Definition\InterfaceType;
 use LogicException;
-use function preg_match;
+use function Safe\preg_match;
 
 abstract class TypeBuilder
 {
