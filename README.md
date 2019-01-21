@@ -109,6 +109,68 @@ $episodeEnum = EnumBuilder::create('Episode')
     ->build();
 ```
 
+#### InterfaceBuilder
+
+✔️ Standard way with `webonyx/graphql-php`
+
+```php
+<?php
+use GraphQL\Type\Definition\InterfaceType;
+use GraphQL\Type\Definition\Type;
+
+$character = new InterfaceType([
+    'name' => 'Character',
+    'description' => 'A character in the Star Wars Trilogy',
+    'fields' => [
+        'id' => [
+            'type' => Type::nonNull(Type::string()),
+            'description' => 'The id of the character.',
+        ],
+        'name' => [
+            'type' => Type::string(),
+            'description' => 'The name of the character.'
+        ]
+    ],
+    'resolveType' => function ($value) {
+        if ($value->type === 'human') {
+            return MyTypes::human();            
+        } else {
+            return MyTypes::droid();
+        }
+    }
+]);
+```
+
+✨ The same can be produced in objective way
+
+```php
+<?php
+use SimPod\GraphQLUtils\Builder\InterfaceBuilder;
+use SimPod\GraphQLUtils\Builder\FieldBuilder;
+use GraphQL\Type\Definition\Type;
+
+
+$character = InterfaceBuilder::create('Character')
+    ->setDescription('A character in the Star Wars Trilogy')
+    ->setFields([
+        FieldBuilder::create('id', Type::nonNull(Type::string()))
+            ->setDescription('The id of the character.')
+            ->build(),
+        FieldBuilder::create('name', Type::string())
+            ->setDescription('The name of the character.')
+            ->build()
+    ])
+    ->setResolveType(
+        function ($value) {
+            if ($value->type === 'human') {
+                return MyTypes::human();            
+            }
+            return MyTypes::droid();
+    }
+    )
+    ->build();
+```
+
 ### Types
 
 #### 🕰️ DateTime

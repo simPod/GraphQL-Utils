@@ -28,7 +28,7 @@ final class FieldBuilderTest extends TestCase
         self::assertSame('SomeDescription', $field['description']);
 
         self::assertArrayHasKey('resolve', $field);
-        self::assertInternalType('callable', $field['resolve']);
+        self::assertIsCallable($field['resolve']);
         self::assertSame('Resolver result', $field['resolve']());
 
         self::assertCount(1, $field['args']);

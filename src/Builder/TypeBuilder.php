@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
-use GraphQL\Type\Definition\InterfaceType;
 use LogicException;
 use function Safe\preg_match;
 
@@ -17,9 +16,6 @@ abstract class TypeBuilder
 
     /** @var string */
     private $description;
-
-    /** @var InterfaceType[] */
-    private $interfaces = [];
 
     protected function __construct(string $name)
     {
@@ -41,16 +37,6 @@ abstract class TypeBuilder
     }
 
     /**
-     * @return static
-     */
-    public function addInterface(InterfaceType $interfaceType) : self
-    {
-        $this->interfaces[] = $interfaceType;
-
-        return $this;
-    }
-
-    /**
      * @return mixed[]
      */
     public function build() : array
@@ -58,7 +44,6 @@ abstract class TypeBuilder
         return [
             'name'         => $this->name,
             'description'  => $this->description,
-            'interfaces'   => $this->interfaces,
         ];
     }
 }

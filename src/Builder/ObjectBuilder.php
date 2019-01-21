@@ -4,8 +4,13 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
+use GraphQL\Type\Definition\InterfaceType;
+
 class ObjectBuilder extends TypeBuilder
 {
+    /** @var InterfaceType[] */
+    private $interfaces = [];
+
     /** @var callable|mixed[][] */
     private $fields = [];
 
@@ -15,6 +20,16 @@ class ObjectBuilder extends TypeBuilder
     public static function create(string $name) : self
     {
         return new static($name);
+    }
+
+    /**
+     * @return static
+     */
+    public function addInterface(InterfaceType $interfaceType) : self
+    {
+        $this->interfaces[] = $interfaceType;
+
+        return $this;
     }
 
     /**
@@ -34,8 +49,9 @@ class ObjectBuilder extends TypeBuilder
      */
     public function build() : array
     {
-        $parameters           = parent::build();
-        $parameters['fields'] = $this->fields;
+        $parameters               = parent::build();
+        $parameters['interfaces'] = $this->interfaces;
+        $parameters['fields']     = $this->fields;
 
         return $parameters;
     }

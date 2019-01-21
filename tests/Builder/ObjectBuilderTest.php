@@ -38,6 +38,7 @@ final class ObjectBuilderTest extends TestCase
         self::assertSame($name, $object['name']);
         self::assertSame($description, $object['description']);
         self::assertArrayHasKey('fields', $object);
+        self::assertIsArray($object['fields']);
         self::assertCount(1, $object['fields']);
     }
 
