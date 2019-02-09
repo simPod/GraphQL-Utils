@@ -21,6 +21,9 @@ install:
 script: ./vendor/bin/phpunit
 
 jobs:
+    allow_failures:
+        -   php: nightly
+
     include:
         -   stage: Test
             name: Coverage
