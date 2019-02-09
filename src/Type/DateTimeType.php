@@ -7,8 +7,8 @@ namespace SimPod\GraphQLUtils\Type;
 use DateTimeImmutable;
 use DateTimeInterface;
 use GraphQL\Error\InvariantViolation;
+use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
-use GraphQL\Language\AST\ValueNode;
 use GraphQL\Type\Definition\CustomScalarType;
 use GraphQL\Utils\Utils;
 use InvalidArgumentException;
@@ -67,18 +67,18 @@ class DateTimeType extends CustomScalarType
     }
 
     /**
-     * @param ValueNode    $valueNode
+     * @param Node         $node
      * @param mixed[]|null $variables
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
      */
-    public function parseLiteral($valueNode, ?array $variables = null) : ?DateTimeImmutable
+    public function parseLiteral($node, ?array $variables = null) : ?DateTimeImmutable
     {
-        if (! $valueNode instanceof StringValueNode) {
+        if (! $node instanceof StringValueNode) {
             return null;
         }
 
-        return $this->parseValue($valueNode->value);
+        return $this->parseValue($node->value);
     }
 
     private function validateDatetime(string $value) : bool
