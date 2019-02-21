@@ -22,7 +22,6 @@ class DateTimeType extends CustomScalarType
     private const NAME           = 'DateTime';
     private const DESCRIPTION    = 'The `DateTime` scalar type represents time data, represented as an ISO-8601 encoded UTC date string.';
     private const RFC_3339_REGEX = '~^(\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][\d]|3[01])T([01][\d]|2[0-3]):([0-5][\d]):([0-5][\d]|60))(\.\d{1,})?(([Z])|([+|-]([01][\d]|2[0-3]):[0-5][\d]))$~';
-//    private const RFC_3339_REGEX_DATE = '~^(\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][\d]|3[01]))$~';
 
     /** @var string */
     public $name = self::NAME;
@@ -98,12 +97,7 @@ class DateTimeType extends CustomScalarType
 
     private function validateDate(string $date) : bool
     {
-//        if (preg_match(self::RFC_3339_REGEX_DATE, $date) !== 1) {
-//            return false;
-//        }
-
-        // Verify the correct number of days for
-        // the month contained in the date-string.
+        // Verify the correct number of days for the month contained in the date-string.
         $year  = (int) substr($date, 0, 4);
         $month = (int) substr($date, 5, 2);
         $day   = (int) substr($date, 8, 2);
