@@ -3,9 +3,6 @@ parameters:
     paths:
         - %currentWorkingDirectory%/src
         - %currentWorkingDirectory%/tests
-    ignoreErrors:
-        # https://github.com/webonyx/graphql-php/pull/406
-        - "~Parameter \\#1 \\$vars of class GraphQL\\\\Language\\\\AST\\\\BooleanValueNode constructor expects array<GraphQL\\\\Language\\\\AST\\\\Location\\|GraphQL\\\\Language\\\\AST\\\\NameNode\\|GraphQL\\\\Language\\\\AST\\\\NodeList\\|GraphQL\\\\Language\\\\AST\\\\SelectionSetNode\\|string\\|null>, array<string, false> given~"
 
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
