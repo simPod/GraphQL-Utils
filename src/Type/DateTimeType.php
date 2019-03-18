@@ -88,11 +88,8 @@ class DateTimeType extends CustomScalarType
 
         $tPosition = strpos($value, 'T');
         assert($tPosition !== false);
-        if (! $this->validateDate(substr($value, 0, $tPosition))) {
-            return false;
-        }
 
-        return true;
+        return $this->validateDate(substr($value, 0, $tPosition));
     }
 
     private function validateDate(string $date) : bool
@@ -108,11 +105,7 @@ class DateTimeType extends CustomScalarType
                     return false;
                 }
 
-                if (! $this->isLeapYear($year) && $day > 28) {
-                    return false;
-                }
-
-                return true;
+                return $this->isLeapYear($year) || $day <= 28;
             case 4: // April
             case 6: // June
             case 9: // September
