@@ -18,7 +18,7 @@
         "webonyx/graphql-php": "^0.12||^0.13"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^5.0",
+        "doctrine/coding-standard": "^5.0 || ^6.0",
         "phpstan/phpstan": "^0.11.1",
         "phpstan/phpstan-phpunit": "^0.11.0",
         "phpstan/phpstan-strict-rules": "^0.11.0",
