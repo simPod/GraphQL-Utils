@@ -19,7 +19,8 @@ class EnumBuilder extends TypeBuilder
 
     public function addValue(string $value, ?string $name = null, ?string $description = null) : self
     {
-        if (preg_match(self::VALID_NAME_PATTERN, $value) !== 1) {
+        $name = $name ?? $value;
+        if (preg_match(self::VALID_NAME_PATTERN, $name) !== 1) {
             throw new LogicException();
         }
 
@@ -27,7 +28,7 @@ class EnumBuilder extends TypeBuilder
         if ($description !== null) {
             $enumDefinition['description'] = $description;
         }
-        $this->values[$name ?? $value] = $enumDefinition;
+        $this->values[$name] = $enumDefinition;
 
         return $this;
     }
