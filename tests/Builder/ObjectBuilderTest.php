@@ -6,10 +6,10 @@ namespace SimPod\GraphQLUtils\Tests\Builder;
 
 use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\Type;
-use LogicException;
 use PHPUnit\Framework\TestCase;
 use SimPod\GraphQLUtils\Builder\FieldBuilder;
 use SimPod\GraphQLUtils\Builder\ObjectBuilder;
+use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 final class ObjectBuilderTest extends TestCase
 {
@@ -44,7 +44,8 @@ final class ObjectBuilderTest extends TestCase
 
     public function testInvalidName() : void
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage('does not match pattern');
 
         ObjectBuilder::create('invalid-type-name');
     }

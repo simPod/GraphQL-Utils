@@ -11,7 +11,7 @@ use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\CustomScalarType;
 use GraphQL\Utils\Utils;
-use InvalidArgumentException;
+use SimPod\GraphQLUtils\Exception\InvalidArgument;
 use function assert;
 use function Safe\preg_match;
 use function Safe\substr;
@@ -59,7 +59,7 @@ class DateTimeType extends CustomScalarType
     public function parseValue($value) : DateTimeImmutable
     {
         if (! $this->validateDatetime($value)) {
-            throw new InvalidArgumentException('DateTime type expects input value to be ISO 8601 compliant.');
+            throw InvalidArgument::valueNotIso8601Compliant($value);
         }
 
         return new DateTimeImmutable($value);

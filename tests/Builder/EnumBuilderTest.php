@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Tests\Builder;
 
-use LogicException;
 use PHPUnit\Framework\TestCase;
 use SimPod\GraphQLUtils\Builder\EnumBuilder;
+use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 final class EnumBuilderTest extends TestCase
 {
@@ -35,7 +35,8 @@ final class EnumBuilderTest extends TestCase
 
     public function testInvalidValue() : void
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(InvalidArgument::class);
+        $this->expectExceptionMessage('does not match pattern');
 
         EnumBuilder::create('Enum')->addValue('invalid-value');
     }

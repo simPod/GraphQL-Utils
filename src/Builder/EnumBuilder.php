@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
-use LogicException;
+use SimPod\GraphQLUtils\Exception\InvalidArgument;
 use function Safe\preg_match;
 
 class EnumBuilder extends TypeBuilder
@@ -21,7 +21,7 @@ class EnumBuilder extends TypeBuilder
     {
         $name = $name ?? $value;
         if (preg_match(self::VALID_NAME_PATTERN, $name) !== 1) {
-            throw new LogicException();
+            throw InvalidArgument::invalidNameFormat($name);
         }
 
         $enumDefinition = ['value' => $value];

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
-use LogicException;
+use SimPod\GraphQLUtils\Exception\InvalidArgument;
 use function Safe\preg_match;
 
 abstract class TypeBuilder
 {
-    protected const VALID_NAME_PATTERN = '~^[_a-zA-Z][_a-zA-Z0-9]*$~';
+    public const VALID_NAME_PATTERN = '~^[_a-zA-Z][_a-zA-Z0-9]*$~';
 
     /** @var string */
     private $name;
@@ -20,7 +20,7 @@ abstract class TypeBuilder
     protected function __construct(string $name)
     {
         if (preg_match(self::VALID_NAME_PATTERN, $name) !== 1) {
-            throw new LogicException();
+            throw InvalidArgument::invalidNameFormat($name);
         }
 
         $this->name = $name;
@@ -42,8 +42,8 @@ abstract class TypeBuilder
     public function build() : array
     {
         return [
-            'name'         => $this->name,
-            'description'  => $this->description,
+            'name'        => $this->name,
+            'description' => $this->description,
         ];
     }
 }
