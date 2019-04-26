@@ -9,6 +9,9 @@ class InterfaceBuilder extends ObjectBuilder
     /** @var callable|null */
     private $resolveType;
 
+    /**
+     * @return static
+     */
     public function setResolveType(callable $resolveType) : self
     {
         $this->resolveType = $resolveType;

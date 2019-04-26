@@ -17,11 +17,17 @@ class FieldBuilder
         $this->parameters['type'] = $type;
     }
 
+    /**
+     * @return static
+     */
     public static function create(string $name, Type $type) : self
     {
         return new self($name, $type);
     }
 
+    /**
+     * @return static
+     */
     public function setDescription(string $description) : self
     {
         $this->parameters['description'] = $description;
@@ -29,6 +35,9 @@ class FieldBuilder
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function addArgument(string $name, Type $type, ?string $description = null) : self
     {
         $this->parameters['args'][$name] = ['type' => $type];
@@ -40,6 +49,9 @@ class FieldBuilder
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function setResolver(callable $callback) : self
     {
         $this->parameters['resolve'] = $callback;
@@ -47,6 +59,9 @@ class FieldBuilder
         return $this;
     }
 
+    /**
+     * @return static
+     */
     public function setDeprecationReason(string $reason) : self
     {
         $this->parameters['deprecationReason'] = $reason;

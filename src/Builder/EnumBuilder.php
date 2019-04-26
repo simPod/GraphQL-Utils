@@ -12,11 +12,17 @@ class EnumBuilder extends TypeBuilder
     /** @var mixed[][] */
     private $values = [];
 
+    /**
+     * @return static
+     */
     public static function create(string $name) : self
     {
         return new static($name);
     }
 
+    /**
+     * @return static
+     */
     public function addValue(string $value, ?string $name = null, ?string $description = null) : self
     {
         $name = $name ?? $value;
