@@ -26,19 +26,26 @@ final class ObjectBuilderTest extends TestCase
             }
         };
 
+        $fieldResolver = static function () {
+        };
+
         $builder = ObjectBuilder::create($name);
         $object  = $builder
             ->setDescription($description)
             ->addInterface($interface)
-            ->setFields([
-                FieldBuilder::create('SomeField', Type::string())->build(),
-            ])
+            ->setFields(
+                [
+                    FieldBuilder::create('SomeField', Type::string())->build(),
+                ]
+            )
+            ->setFieldResolver($fieldResolver)
             ->build();
 
         self::assertSame($name, $object['name']);
         self::assertSame($description, $object['description']);
         self::assertArrayHasKey('fields', $object);
         self::assertIsArray($object['fields']);
+        self::assertSame($fieldResolver, $object['resolveField']);
         self::assertCount(1, $object['fields']);
     }
 
