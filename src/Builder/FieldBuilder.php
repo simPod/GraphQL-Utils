@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
+use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 
 class FieldBuilder
@@ -50,11 +51,13 @@ class FieldBuilder
     }
 
     /**
+     * @param callable(mixed, array, mixed, ResolveInfo) : mixed $resolver
+     *
      * @return static
      */
-    public function setResolver(callable $callback) : self
+    public function setResolver(callable $resolver) : self
     {
-        $this->parameters['resolve'] = $callback;
+        $this->parameters['resolve'] = $resolver;
 
         return $this;
     }

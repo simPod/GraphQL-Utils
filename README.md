@@ -36,6 +36,10 @@ This library provides set of strictly typed builders that help you build your sc
 ✔️ Standard way with `webonyx/graphql-php`
 
 ```php
+<?php
+
+use GraphQL\Type\Definition\ResolveInfo;
+
 $userType = new ObjectType([
     'name' => 'User',
     'description' => 'Our blog visitor',
@@ -45,16 +49,27 @@ $userType = new ObjectType([
             'description' => 'User first name'
         ],
         'email' => Type::string()
-    ]
+    ],
+    'resolveField' => static function(User $user, $args, $context, ResolveInfo $info) {
+        switch ($info->fieldName) {
+            case 'name':
+              return $user->getName();
+            case 'email':
+              return $user->getEmail();
+            default:
+              return null;
+        }
+    }
 ]);
 ``` 
 
 ✨ The same can be produced in objective way
 
 ```php
-use SimPod\GraphQLUtils\Builder\ObjectBuilder;
+<?php
 
-...
+use GraphQL\Type\Definition\ResolveInfo;
+use SimPod\GraphQLUtils\Builder\ObjectBuilder;
 
 $userType = ObjectBuilder::create('User')
     ->setDescription('Our blog visitor')
@@ -65,6 +80,18 @@ $userType = ObjectBuilder::create('User')
         FieldBuilder::create('email', Type::string())
             ->build(),
     ])
+    ->setFieldResolver(
+        static function(User $user, $args, $context, ResolveInfo $info) {
+           switch ($info->fieldName) {
+               case 'name':
+                 return $user->getName();
+               case 'email':
+                 return $user->getEmail();
+               default:
+                 return null;
+           }
+        }
+    )
     ->build();
 
 ```
@@ -74,9 +101,7 @@ $userType = ObjectBuilder::create('User')
 ✔️ Standard way with `webonyx/graphql-php`
 
 ```php
-use SimPod\GraphQLUtils\Builder\EnumBuilder;
-
-...
+<?php
 
 $episodeEnum = new EnumType([
     'name' => 'Episode',
@@ -101,6 +126,10 @@ $episodeEnum = new EnumType([
 ✨ The same can be produced in objective way
 
 ```php
+<?php
+
+use SimPod\GraphQLUtils\Builder\EnumBuilder;
+
 $episodeEnum = EnumBuilder::create('Episode')
     ->setDescription('One of the films in the Star Wars Trilogy')
     ->addValue(4, 'NEWHOPE', 'Released in 1977.')
@@ -115,6 +144,7 @@ $episodeEnum = EnumBuilder::create('Episode')
 
 ```php
 <?php
+
 use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\Type;
 
@@ -131,12 +161,12 @@ $character = new InterfaceType([
             'description' => 'The name of the character.'
         ]
     ],
-    'resolveType' => function ($value) {
+    'resolveType' => static function ($value) : object {
         if ($value->type === 'human') {
             return MyTypes::human();            
-        } else {
-            return MyTypes::droid();
         }
+
+        return MyTypes::droid();
     }
 ]);
 ```
@@ -149,7 +179,6 @@ use SimPod\GraphQLUtils\Builder\InterfaceBuilder;
 use SimPod\GraphQLUtils\Builder\FieldBuilder;
 use GraphQL\Type\Definition\Type;
 
-
 $character = InterfaceBuilder::create('Character')
     ->setDescription('A character in the Star Wars Trilogy')
     ->setFields([
@@ -161,10 +190,11 @@ $character = InterfaceBuilder::create('Character')
             ->build()
     ])
     ->setResolveType(
-        function ($value) {
+        static function ($value) : object {
             if ($value->type === 'human') {
                 return MyTypes::human();            
             }
+
             return MyTypes::droid();
     }
     )
@@ -186,12 +216,13 @@ Extending your exception with `SimPod\GraphQLUtils\Error\Error` forces you to im
 Example Error class
 
 ```php
+<?php
+
 use SimPod\GraphQLUtils\Error\Error;
-use function sprintf;
 
 final class InvalidCustomerIdProvided extends Error
 {
-    public const TYPE = 'INVALID_CUSTOMER_ID_PROVIDED';
+    private const TYPE = 'INVALID_CUSTOMER_ID_PROVIDED';
 
     public static function noneGiven() : self
     {
@@ -213,9 +244,12 @@ final class InvalidCustomerIdProvided extends Error
 Create your formatter
 
 ```php
+<?php
+
+use GraphQL\Error\Error;
 use SimPod\GraphQLUtils\Error\FormattedError;
 
-$formatError = function formatError(Error $error) : array
+$formatError = static function (Error $error) : array
 {
    if (!$error->isClientSafe()) {
        // eg. log error
@@ -229,13 +263,12 @@ $errorFormatterCallback = static function (Error $error) use ($formatError) : ar
 };
         
 $config = GraphQL::executeQuery(/* $args */)
-    ...
     ->setErrorFormatter($errorFormatterCallback)
     ->setErrorsHandler(
         static function (array $errors, callable $formatter) : array {
             return array_map($formatter, $errors);
         }
-    )
+    );
 ```
 
 Error types will then be provided in your response so client can easier identify the error type
