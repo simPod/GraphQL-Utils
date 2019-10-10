@@ -77,8 +77,7 @@ $userType = ObjectBuilder::create('User')
         FieldBuilder::create('firstName', Type::string())
             ->setDescription('User first name')
             ->build(),
-        FieldBuilder::create('email', Type::string())
-            ->build(),
+        FieldBuilder::create('email', Type::string())->build(),
     ])
     ->setFieldResolver(
         static function(User $user, $args, $context, ResolveInfo $info) {
@@ -91,9 +90,7 @@ $userType = ObjectBuilder::create('User')
                  return null;
            }
         }
-    )
-    ->build();
-
+    )->build();
 ```
 
 #### EnumBuilder
@@ -175,6 +172,7 @@ $character = new InterfaceType([
 
 ```php
 <?php
+
 use SimPod\GraphQLUtils\Builder\InterfaceBuilder;
 use SimPod\GraphQLUtils\Builder\FieldBuilder;
 use GraphQL\Type\Definition\Type;
@@ -196,9 +194,8 @@ $character = InterfaceBuilder::create('Character')
             }
 
             return MyTypes::droid();
-    }
-    )
-    ->build();
+        }
+    )->build();
 ```
 
 ### Types
@@ -251,7 +248,7 @@ use SimPod\GraphQLUtils\Error\FormattedError;
 
 $formatError = static function (Error $error) : array
 {
-   if (!$error->isClientSafe()) {
+   if (! $error->isClientSafe()) {
        // eg. log error
    }
 
