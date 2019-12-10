@@ -69,7 +69,7 @@ class DateTimeType extends CustomScalarType
      * @param Node         $node
      * @param mixed[]|null $variables
      *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingParameterTypeHint
+     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
     public function parseLiteral($node, ?array $variables = null) : ?DateTimeImmutable
     {

@@ -34,6 +34,7 @@ class EnumBuilder extends TypeBuilder
         if ($description !== null) {
             $enumDefinition['description'] = $description;
         }
+
         $this->values[$name] = $enumDefinition;
 
         return $this;

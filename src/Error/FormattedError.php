@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Error;
 
-/**
- * {@inheritdoc}
- */
 class FormattedError extends \GraphQL\Error\FormattedError
 {
     /**
