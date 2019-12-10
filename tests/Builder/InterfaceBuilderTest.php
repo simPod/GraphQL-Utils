@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace SimPod\GraphQLUtils\Tests\Builder;
 
 use GraphQL\Type\Definition\Type;
-use LogicException;
 use PHPUnit\Framework\TestCase;
 use SimPod\GraphQLUtils\Builder\EnumBuilder;
 use SimPod\GraphQLUtils\Builder\FieldBuilder;
 use SimPod\GraphQLUtils\Builder\InterfaceBuilder;
+use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 final class InterfaceBuilderTest extends TestCase
 {
@@ -21,9 +21,11 @@ final class InterfaceBuilderTest extends TestCase
         $description = 'Description';
         $interface   = $builder
             ->setDescription($description)
-            ->setFields([
-                FieldBuilder::create('SomeField', Type::string())->build(),
-            ])
+            ->setFields(
+                [
+                    FieldBuilder::create('SomeField', Type::string())->build(),
+                ]
+            )
             ->setResolveType(
                 static function (bool $value) : Type {
                     if ($value) {
@@ -47,7 +49,7 @@ final class InterfaceBuilderTest extends TestCase
 
     public function testInvalidValue() : void
     {
-        $this->expectException(LogicException::class);
+        $this->expectException(InvalidArgument::class);
 
         EnumBuilder::create('Enum')->addValue('invalid-value');
     }

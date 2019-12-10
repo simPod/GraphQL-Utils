@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Exception;
 
-use InvalidArgumentException;
+use Error;
 use SimPod\GraphQLUtils\Builder\TypeBuilder;
 use Throwable;
 use function Safe\sprintf;
 
-final class InvalidArgument extends InvalidArgumentException
+final class InvalidArgument extends Error
 {
     private function __construct(string $message = '', int $code = 0, ?Throwable $previous = null)
     {

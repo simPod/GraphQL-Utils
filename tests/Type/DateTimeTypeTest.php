@@ -11,8 +11,8 @@ use Generator;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\BooleanValueNode;
 use GraphQL\Language\AST\StringValueNode;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use SimPod\GraphQLUtils\Exception\InvalidArgument;
 use SimPod\GraphQLUtils\Type\DateTimeType;
 
 final class DateTimeTypeTest extends TestCase
@@ -82,7 +82,7 @@ final class DateTimeTypeTest extends TestCase
      */
     public function testParseValueInvalidFormatOrValue(string $value) : void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('DateTime type expects input value to be ISO 8601 compliant.');
 
         $dateTimeType = new DateTimeType();
