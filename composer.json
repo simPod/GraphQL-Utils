@@ -14,16 +14,16 @@
     },
     "require": {
         "php": "^7.2||^8.0",
-        "thecodingmachine/safe": "^0.1.16",
+        "thecodingmachine/safe": " ^1.0-beta@dev",
         "webonyx/graphql-php": "^0.12||^0.13"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^6.0",
-        "phpstan/phpstan": "^0.11.16",
-        "phpstan/phpstan-phpunit": "^0.11.2",
-        "phpstan/phpstan-strict-rules": "^0.11.1",
-        "phpunit/phpunit": "^8.4",
-        "thecodingmachine/phpstan-safe-rule": "^0.1.4"
+        "doctrine/coding-standard": "^7.0",
+        "phpstan/phpstan": "0.12.2",
+        "phpstan/phpstan-phpunit": "0.12.1",
+        "phpstan/phpstan-strict-rules": "0.12.0",
+        "phpunit/phpunit": "^8.5",
+        "thecodingmachine/phpstan-safe-rule": "^1.0"
     },
     "autoload": {
         "psr-4": {
