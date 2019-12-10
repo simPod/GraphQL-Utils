@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Type;
 
-use DateTimeImmutable;
 use DateTimeInterface;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\CustomScalarType;
 use GraphQL\Utils\Utils;
+use Safe\DateTimeImmutable;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
 use function assert;
 use function Safe\preg_match;

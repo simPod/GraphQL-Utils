@@ -17,7 +17,7 @@ abstract class TypeBuilder
     /** @var string */
     private $description;
 
-    protected function __construct(string $name)
+    final protected function __construct(string $name)
     {
         if (preg_match(self::VALID_NAME_PATTERN, $name) !== 1) {
             throw InvalidArgument::invalidNameFormat($name);

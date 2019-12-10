@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Tests\Type;
 
-use DateTime;
-use DateTimeImmutable;
 use DateTimeInterface;
 use Generator;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\BooleanValueNode;
 use GraphQL\Language\AST\StringValueNode;
 use PHPUnit\Framework\TestCase;
+use Safe\DateTime;
+use Safe\DateTimeImmutable;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
 use SimPod\GraphQLUtils\Type\DateTimeType;
 

@@ -15,7 +15,7 @@ class ObjectBuilder extends TypeBuilder
     /** @var callable|mixed[][] */
     private $fields = [];
 
-    /** @var callable(mixed, array, mixed, ResolveInfo) : mixed */
+    /** @var callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed */
     private $fieldResolver;
 
     /**
@@ -49,7 +49,7 @@ class ObjectBuilder extends TypeBuilder
     }
 
     /**
-     * @param callable(mixed, array, mixed, ResolveInfo) : mixed $fieldResolver
+     * @param callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed $fieldResolver
      *
      * @return static
      */

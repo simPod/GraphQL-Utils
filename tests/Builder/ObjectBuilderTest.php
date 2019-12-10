@@ -26,7 +26,7 @@ final class ObjectBuilderTest extends TestCase
             }
         };
 
-        $fieldResolver = static function () {
+        $fieldResolver = static function () : void {
         };
 
         $builder = ObjectBuilder::create($name);

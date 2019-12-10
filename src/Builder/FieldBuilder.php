@@ -12,7 +12,7 @@ class FieldBuilder
     /** @var mixed[] */
     private $parameters;
 
-    private function __construct(string $name, Type $type)
+    final private function __construct(string $name, Type $type)
     {
         $this->parameters['name'] = $name;
         $this->parameters['type'] = $type;
@@ -23,7 +23,7 @@ class FieldBuilder
      */
     public static function create(string $name, Type $type) : self
     {
-        return new self($name, $type);
+        return new static($name, $type);
     }
 
     /**
@@ -51,7 +51,7 @@ class FieldBuilder
     }
 
     /**
-     * @param callable(mixed, array, mixed, ResolveInfo) : mixed $resolver
+     * @param callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed $resolver
      *
      * @return static
      */
