@@ -38,6 +38,7 @@ This library provides set of strictly typed builders that help you build your sc
 ```php
 <?php
 
+use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 
 $userType = new ObjectType([
@@ -68,29 +69,33 @@ $userType = new ObjectType([
 ```php
 <?php
 
+use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use SimPod\GraphQLUtils\Builder\ObjectBuilder;
 
-$userType = ObjectBuilder::create('User')
-    ->setDescription('Our blog visitor')
-    ->setFields([
-        FieldBuilder::create('firstName', Type::string())
-            ->setDescription('User first name')
-            ->build(),
-        FieldBuilder::create('email', Type::string())->build(),
-    ])
-    ->setFieldResolver(
-        static function(User $user, $args, $context, ResolveInfo $info) {
-           switch ($info->fieldName) {
-               case 'name':
-                 return $user->getName();
-               case 'email':
-                 return $user->getEmail();
-               default:
-                 return null;
-           }
-        }
-    )->build();
+$userType = new ObjectType(
+    ObjectBuilder::create('User')
+        ->setDescription('Our blog visitor')
+        ->setFields([
+            FieldBuilder::create('firstName', Type::string())
+                ->setDescription('User first name')
+                ->build(),
+            FieldBuilder::create('email', Type::string())->build(),
+        ])
+        ->setFieldResolver(
+            static function(User $user, $args, $context, ResolveInfo $info) {
+               switch ($info->fieldName) {
+                   case 'name':
+                     return $user->getName();
+                   case 'email':
+                     return $user->getEmail();
+                   default:
+                     return null;
+               }
+            }
+        )
+        ->build()
+);
 ```
 
 #### EnumBuilder
@@ -99,6 +104,8 @@ $userType = ObjectBuilder::create('User')
 
 ```php
 <?php
+
+use GraphQL\Type\Definition\EnumType;
 
 $episodeEnum = new EnumType([
     'name' => 'Episode',
@@ -125,14 +132,17 @@ $episodeEnum = new EnumType([
 ```php
 <?php
 
+use GraphQL\Type\Definition\EnumType;
 use SimPod\GraphQLUtils\Builder\EnumBuilder;
 
-$episodeEnum = EnumBuilder::create('Episode')
-    ->setDescription('One of the films in the Star Wars Trilogy')
-    ->addValue(4, 'NEWHOPE', 'Released in 1977.')
-    ->addValue(5, 'EMPIRE', 'Released in 1980.')
-    ->addValue(6, 'JEDI', 'Released in 1983.')
-    ->build();
+$episodeEnum = new EnumType( 
+    EnumBuilder::create('Episode')
+        ->setDescription('One of the films in the Star Wars Trilogy')
+        ->addValue(4, 'NEWHOPE', 'Released in 1977.')
+        ->addValue(5, 'EMPIRE', 'Released in 1980.')
+        ->addValue(6, 'JEDI', 'Released in 1983.')
+        ->build()
+);
 ```
 
 #### InterfaceBuilder
@@ -173,29 +183,33 @@ $character = new InterfaceType([
 ```php
 <?php
 
+use GraphQL\Type\Definition\InterfaceType;
+use GraphQL\Type\Definition\Type;
 use SimPod\GraphQLUtils\Builder\InterfaceBuilder;
 use SimPod\GraphQLUtils\Builder\FieldBuilder;
-use GraphQL\Type\Definition\Type;
 
-$character = InterfaceBuilder::create('Character')
-    ->setDescription('A character in the Star Wars Trilogy')
-    ->setFields([
-        FieldBuilder::create('id', Type::nonNull(Type::string()))
-            ->setDescription('The id of the character.')
-            ->build(),
-        FieldBuilder::create('name', Type::string())
-            ->setDescription('The name of the character.')
-            ->build()
-    ])
-    ->setResolveType(
-        static function ($value) : object {
-            if ($value->type === 'human') {
-                return MyTypes::human();            
+$character = new InterfaceType(
+    InterfaceBuilder::create('Character')
+        ->setDescription('A character in the Star Wars Trilogy')
+        ->setFields([
+            FieldBuilder::create('id', Type::nonNull(Type::string()))
+                ->setDescription('The id of the character.')
+                ->build(),
+            FieldBuilder::create('name', Type::string())
+                ->setDescription('The name of the character.')
+                ->build()
+        ])
+        ->setResolveType(
+            static function ($value) : object {
+                if ($value->type === 'human') {
+                    return MyTypes::human();            
+                }
+    
+                return MyTypes::droid();
             }
-
-            return MyTypes::droid();
-        }
-    )->build();
+        )
+        ->build()
+);
 ```
 
 ### Types
