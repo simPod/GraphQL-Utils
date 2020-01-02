@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimPod\GraphQLUtils\Tests\Type;
 
 use DateTimeInterface;
+use DateTimeZone;
 use Generator;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\BooleanValueNode;
@@ -56,7 +57,10 @@ final class DateTimeTypeTest extends TestCase
     {
         $dateTimeType = new DateTimeType();
 
-        self::assertEquals($expected, $dateTimeType->parseValue($valueToParse));
+        self::assertSame(
+            $expected->format(DateTimeInterface::ATOM),
+            $dateTimeType->parseValue($valueToParse)->setTimezone(new DateTimeZone('UTC'))->format(DateTimeInterface::ATOM)
+        );
     }
 
     /**
@@ -105,10 +109,12 @@ final class DateTimeTypeTest extends TestCase
     public function testParseLiteral() : void
     {
         $dateTimeType = new DateTimeType();
+        $actual       = $dateTimeType->parseLiteral(new StringValueNode(['value' => '2018-12-31T01:02:03+00:00']));
 
-        self::assertEquals(
-            new DateTimeImmutable('2018-12-31 01:02:03'),
-            $dateTimeType->parseLiteral(new StringValueNode(['value' => '2018-12-31T01:02:03+00:00']))
+        self::assertNotNull($actual);
+        self::assertSame(
+            (new DateTimeImmutable('2018-12-31 01:02:03'))->format(DateTimeInterface::ATOM),
+            $actual->format(DateTimeInterface::ATOM)
         );
     }
 
