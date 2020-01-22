@@ -20,7 +20,7 @@
     "require-dev": {
         "doctrine/coding-standard": "^7.0",
         "phpstan/phpstan": "0.12.7",
-        "phpstan/phpstan-phpunit": "0.12.5",
+        "phpstan/phpstan-phpunit": "0.12.6",
         "phpstan/phpstan-strict-rules": "0.12.1",
         "phpunit/phpunit": "^8.5",
         "thecodingmachine/phpstan-safe-rule": "^1.0"
