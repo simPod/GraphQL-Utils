@@ -1,0 +1,63 @@
+<?php
+
+declare(strict_types=1);
+
+namespace SimPod\GraphQLUtils\Builder;
+
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\ResolveInfo;
+
+class UnionBuilder extends TypeBuilder
+{
+    /** @var callable(object, mixed, ResolveInfo)|null */
+    private $resolveType;
+
+    /** @var ObjectType[] */
+    private $types;
+
+    /**
+     * @return static
+     */
+    public static function create(string $name) : self
+    {
+        return new static($name);
+    }
+
+    /**
+     * @see ResolveInfo Force Jetbrains IDE use
+     *
+     * @param callable(mixed):ObjectType $resolveType
+     *
+     * @return static
+     */
+    public function setResolveType(callable $resolveType) : self
+    {
+        $this->resolveType = $resolveType;
+
+        return $this;
+    }
+
+    /**
+     * @param ObjectType[] $types
+     *
+     * @return static
+     */
+    public function setTypes(array $types) : self
+    {
+        $this->types = $types;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed[]
+     */
+    public function build() : array
+    {
+        $parameters                = parent::build();
+        $parameters['types']       = $this->types;
+        $parameters['resolveType'] = $this->resolveType;
+
+        return $parameters;
+    }
+}
