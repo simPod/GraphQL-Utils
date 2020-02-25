@@ -7,8 +7,8 @@ cache:
         - $HOME/.composer/cache
 
 php:
-    - 7.2
     - 7.3
+    - 7.4
     - nightly
 
 before_install:
@@ -25,9 +25,9 @@ jobs:
         -   php: nightly
 
     include:
-        -   stage: Test
+        - stage: Test
             name: Coverage
-            php: 7.2
+          php: 7.3
             before_script:
                 - mv ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini{.disabled,}
                 - if [[ ! $(php -m | grep -si xdebug) ]]; then echo "xdebug required for coverage"; exit 1; fi
@@ -36,11 +36,11 @@ jobs:
                 - wget https://github.com/scrutinizer-ci/ocular/releases/download/1.5.2/ocular.phar
                 - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml
 
-        -   stage: Code Quality
+        - stage: Code Quality
             name: Coding Standard
-            php: 7.2
+          php: 7.3
             script: ./vendor/bin/phpcs
-        -   name: Static Analysis
-            php: 7.2
+        - name: Static Analysis
+          php: 7.3
             script: ./vendor/bin/phpstan analyse
 
