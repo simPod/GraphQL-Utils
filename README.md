@@ -212,6 +212,57 @@ $character = new InterfaceType(
 );
 ```
 
+#### UnionBuilder
+
+✔️ Standard way with `webonyx/graphql-php`
+
+```php
+<?php
+
+use GraphQL\Type\Definition\UnionType;
+
+$searchResultType = new UnionType([
+    'name' => 'SearchResult',
+    'types' => [
+        MyTypes::story(),
+        MyTypes::user()
+    ],
+    'resolveType' => static function($value) {
+        if ($value->type === 'story') {
+            return MyTypes::story();            
+        }
+
+        return MyTypes::user();
+    }
+]);
+```
+
+✨ The same can be produced in objective way
+
+```php
+<?php
+
+use SimPod\GraphQLUtils\Builder\UnionBuilder;
+
+$character = new UnionType(
+    UnionBuilder::create('SearchResult')
+        ->setTypes([
+            MyTypes::story(),
+            MyTypes::user()
+        ])
+        ->setResolveType(
+            static function($value) {
+                if ($value->type === 'story') {
+                    return MyTypes::story();            
+                }
+        
+                return MyTypes::user();
+            }
+        )
+        ->build()
+);
+```
+
 ### Types
 
 #### 🕰️ DateTime
