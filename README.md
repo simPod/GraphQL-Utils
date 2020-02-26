@@ -13,7 +13,12 @@
 - [Installation](#installation)
 - [Features](#features)
   - [Schema Builders](#schema-builders)
+    - [ObjectBuilder and FieldBuilder](#objectbuilder-and-fieldbuilder)
+    - [EnumBuilder](#enumbuilder)
+    - [InterfaceBuilder](#interfacebuilder)
+    - [UnionBuilder](#unionbuilder)
   - [Types](#types)
+    - [DateTime](#%EF%B8%8F-datetime)
   - [Error Handling](#error-handling)
 
 ## Installation
