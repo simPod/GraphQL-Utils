@@ -10,7 +10,7 @@ use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\CustomScalarType;
 use GraphQL\Utils\Utils;
-use Safe\DateTimeImmutable;
+use DateTimeImmutable;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
 use function assert;
 use function Safe\preg_match;
