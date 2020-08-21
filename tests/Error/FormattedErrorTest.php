@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimPod\GraphQLUtils\Tests\Error;
 
 use Exception;
+use GraphQL\Error\DebugFlag;
 use GraphQL\Error\Error;
 use PHPUnit\Framework\TestCase;
 use SimPod\GraphQLUtils\Error\FormattedError;
@@ -38,7 +39,7 @@ final class FormattedErrorTest extends TestCase
                     'category' => 'internal',
                 ],
             ],
-            FormattedError::createFromException($exception, true)
+            FormattedError::createFromException($exception, DebugFlag::INCLUDE_DEBUG_MESSAGE)
         );
     }
 
@@ -55,7 +56,7 @@ final class FormattedErrorTest extends TestCase
             ],
             FormattedError::createFromException(
                 $exception,
-                false,
+                DebugFlag::NONE,
                 'Try grilling smoothie jumbled with salad cream, decorateed with green curry.'
             )
         );
@@ -67,10 +68,11 @@ final class FormattedErrorTest extends TestCase
         {
             public function __construct()
             {
-                parent::__construct('Error Message',
+                parent::__construct(
+                    'Error Message',
                     null,
                     null,
-                    null,
+                    [],
                     null,
                     new CustomError(''));
             }
@@ -84,7 +86,7 @@ final class FormattedErrorTest extends TestCase
                     'type'     => 'CUSTOM_ERROR',
                 ],
             ],
-            FormattedError::createFromException($error, false)
+            FormattedError::createFromException($error, DebugFlag::NONE)
         );
     }
 }

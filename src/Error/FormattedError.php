@@ -4,17 +4,20 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Error;
 
+use GraphQL\Error\DebugFlag;
+use Throwable;
+
 class FormattedError extends \GraphQL\Error\FormattedError
 {
     /**
      * {@inheritdoc}
      */
-    public static function createFromException($e, $debug = false, $internalErrorMessage = null): array
+    public static function createFromException(Throwable $exception, int $debug = DebugFlag::NONE, $internalErrorMessage = null): array
     {
-        $arrayError = parent::createFromException($e, $debug, $internalErrorMessage);
+        $arrayError = parent::createFromException($exception, $debug, $internalErrorMessage);
 
-        if ($e instanceof \GraphQL\Error\Error && $e->getPrevious() instanceof Error) {
-            $arrayError['extensions']['type'] = $e->getPrevious()->getType();
+        if ($exception instanceof \GraphQL\Error\Error && $exception->getPrevious() instanceof Error) {
+            $arrayError['extensions']['type'] = $exception->getPrevious()->getType();
         }
 
         return $arrayError;
