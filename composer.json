@@ -18,11 +18,13 @@
         "webonyx/graphql-php": "^0.12||^0.13"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^7.0",
+        "doctrine/coding-standard": "^8.1",
+        "phpstan/extension-installer": "^1.0",
         "phpstan/phpstan": "0.12.25",
         "phpstan/phpstan-phpunit": "0.12.10",
         "phpstan/phpstan-strict-rules": "0.12.2",
         "phpunit/phpunit": "^9.0",
+        "simpod/php-coveralls-mirror": "^3.0",
         "thecodingmachine/phpstan-safe-rule": "^1.0"
     },
     "autoload": {

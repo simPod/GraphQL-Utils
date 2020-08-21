@@ -1,0 +1,152 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "master"
+  schedule:
+    - cron: "0 17 * * *"
+
+jobs:
+  coding-standard:
+    runs-on: ubuntu-18.04
+    name: Coding Standard
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@2.4.2
+        with:
+          php-version: 7.4
+          coverage: none
+          extensions: json
+          tools: cs2pr
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Dependencies
+        run: composer install ${DEPENDENCIES}
+
+      - name: Coding Standard
+        run: vendor/bin/phpcs -q --report=checkstyle | cs2pr
+
+  phpstan:
+    runs-on: ubuntu-18.04
+    name: PHPStan
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@2.4.2
+        with:
+          php-version: 7.4
+          coverage: none
+          extensions: json
+          tools: cs2pr
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Dependencies
+        run: composer install ${DEPENDENCIES}
+
+      - name: PHPStan
+        run: vendor/bin/phpstan analyse --error-format=checkstyle | cs2pr
+
+  coverage:
+    runs-on: ubuntu-18.04
+    name: Code Coverage
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@2.4.2
+        with:
+          php-version: 7.4
+          coverage: pcov
+          extensions: json
+
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Dependencies
+        run: composer install ${DEPENDENCIES}
+
+      - name: Code coverage
+        run: |
+          ./vendor/bin/phpunit --coverage-clover /tmp/coverage/clover.xml
+
+      - name: Report to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COVERALLS_RUN_LOCALLY: 1
+        run: vendor/bin/php-coveralls --coverage_clover /tmp/coverage/clover.xml --json_path /tmp/coverage/coveralls.json
+
+  tests:
+    name: Tests
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        php: [ 7.3, 7.4 ]
+        dependencies: [ "", --prefer-lowest ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@2.4.2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          extensions: json, mbstring
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Dependencies
+        run: composer install ${DEPENDENCIES}
+
+      - name: Run tests
+        run: |
+          export $ENV
+          ./vendor/bin/phpunit
+        env:
+          ENV: ${{ matrix.env}}

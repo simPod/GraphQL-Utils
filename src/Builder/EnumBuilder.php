@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimPod\GraphQLUtils\Builder;
 
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
+
 use function Safe\preg_match;
 
 class EnumBuilder extends TypeBuilder
@@ -15,7 +16,7 @@ class EnumBuilder extends TypeBuilder
     /**
      * @return static
      */
-    public static function create(string $name) : self
+    public static function create(string $name): self
     {
         return new static($name);
     }
@@ -23,7 +24,7 @@ class EnumBuilder extends TypeBuilder
     /**
      * @return static
      */
-    public function addValue(string $value, ?string $name = null, ?string $description = null) : self
+    public function addValue(string $value, ?string $name = null, ?string $description = null): self
     {
         $name = $name ?? $value;
         if (preg_match(self::VALID_NAME_PATTERN, $name) !== 1) {
@@ -43,7 +44,7 @@ class EnumBuilder extends TypeBuilder
     /**
      * @return mixed[]
      */
-    public function build() : array
+    public function build(): array
     {
         $parameters           = parent::build();
         $parameters['values'] = $this->values;
