@@ -18,7 +18,7 @@ class UnionBuilder extends TypeBuilder
     /**
      * @return static
      */
-    public static function create(string $name) : self
+    public static function create(string $name): self
     {
         return new static($name);
     }
@@ -30,7 +30,7 @@ class UnionBuilder extends TypeBuilder
      *
      * @return static
      */
-    public function setResolveType(callable $resolveType) : self
+    public function setResolveType(callable $resolveType): self
     {
         $this->resolveType = $resolveType;
 
@@ -42,7 +42,7 @@ class UnionBuilder extends TypeBuilder
      *
      * @return static
      */
-    public function setTypes(array $types) : self
+    public function setTypes(array $types): self
     {
         $this->types = $types;
 
@@ -52,7 +52,7 @@ class UnionBuilder extends TypeBuilder
     /**
      * @return mixed[]
      */
-    public function build() : array
+    public function build(): array
     {
         $parameters                = parent::build();
         $parameters['types']       = $this->types;

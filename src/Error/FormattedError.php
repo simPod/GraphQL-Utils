@@ -9,7 +9,7 @@ class FormattedError extends \GraphQL\Error\FormattedError
     /**
      * {@inheritdoc}
      */
-    public static function createFromException($e, $debug = false, $internalErrorMessage = null) : array
+    public static function createFromException($e, $debug = false, $internalErrorMessage = null): array
     {
         $arrayError = parent::createFromException($e, $debug, $internalErrorMessage);
 

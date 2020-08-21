@@ -21,7 +21,7 @@ class FieldBuilder
     /**
      * @return static
      */
-    public static function create(string $name, Type $type) : self
+    public static function create(string $name, Type $type): self
     {
         return new static($name, $type);
     }
@@ -29,7 +29,7 @@ class FieldBuilder
     /**
      * @return static
      */
-    public function setDescription(string $description) : self
+    public function setDescription(string $description): self
     {
         $this->parameters['description'] = $description;
 
@@ -39,7 +39,7 @@ class FieldBuilder
     /**
      * @return static
      */
-    public function addArgument(string $name, Type $type, ?string $description = null) : self
+    public function addArgument(string $name, Type $type, ?string $description = null): self
     {
         $this->parameters['args'][$name] = ['type' => $type];
 
@@ -55,7 +55,7 @@ class FieldBuilder
      *
      * @return static
      */
-    public function setResolver(callable $resolver) : self
+    public function setResolver(callable $resolver): self
     {
         $this->parameters['resolve'] = $resolver;
 
@@ -65,7 +65,7 @@ class FieldBuilder
     /**
      * @return static
      */
-    public function setDeprecationReason(string $reason) : self
+    public function setDeprecationReason(string $reason): self
     {
         $this->parameters['deprecationReason'] = $reason;
 
@@ -75,7 +75,7 @@ class FieldBuilder
     /**
      * @return mixed[]
      */
-    public function build() : array
+    public function build(): array
     {
         return $this->parameters;
     }

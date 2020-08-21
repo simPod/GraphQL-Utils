@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace SimPod\GraphQLUtils\Builder;
 
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
+
 use function Safe\preg_match;
 
 abstract class TypeBuilder
@@ -29,7 +30,7 @@ abstract class TypeBuilder
     /**
      * @return static
      */
-    public function setDescription(string $description) : self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
@@ -39,7 +40,7 @@ abstract class TypeBuilder
     /**
      * @return mixed[]
      */
-    public function build() : array
+    public function build(): array
     {
         return [
             'name'        => $this->name,

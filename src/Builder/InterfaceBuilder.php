@@ -12,7 +12,7 @@ class InterfaceBuilder extends ObjectBuilder
     /**
      * @return static
      */
-    public function setResolveType(callable $resolveType) : self
+    public function setResolveType(callable $resolveType): self
     {
         $this->resolveType = $resolveType;
 
@@ -22,7 +22,7 @@ class InterfaceBuilder extends ObjectBuilder
     /**
      * @return mixed[]
      */
-    public function build() : array
+    public function build(): array
     {
         $parameters                = parent::build();
         $parameters['resolveType'] = $this->resolveType;

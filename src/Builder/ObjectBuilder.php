@@ -21,7 +21,7 @@ class ObjectBuilder extends TypeBuilder
     /**
      * @return static
      */
-    public static function create(string $name) : self
+    public static function create(string $name): self
     {
         return new static($name);
     }
@@ -29,7 +29,7 @@ class ObjectBuilder extends TypeBuilder
     /**
      * @return static
      */
-    public function addInterface(InterfaceType $interfaceType) : self
+    public function addInterface(InterfaceType $interfaceType): self
     {
         $this->interfaces[] = $interfaceType;
 
@@ -41,7 +41,7 @@ class ObjectBuilder extends TypeBuilder
      *
      * @return static
      */
-    public function setFields($fields) : self
+    public function setFields($fields): self
     {
         $this->fields = $fields;
 
@@ -53,7 +53,7 @@ class ObjectBuilder extends TypeBuilder
      *
      * @return static
      */
-    public function setFieldResolver(callable $fieldResolver) : self
+    public function setFieldResolver(callable $fieldResolver): self
     {
         $this->fieldResolver = $fieldResolver;
 
@@ -63,7 +63,7 @@ class ObjectBuilder extends TypeBuilder
     /**
      * @return mixed[]
      */
-    public function build() : array
+    public function build(): array
     {
         $parameters                 = parent::build();
         $parameters['interfaces']   = $this->interfaces;

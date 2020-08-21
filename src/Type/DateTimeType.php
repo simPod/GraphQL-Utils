@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Type;
 
+use DateTimeImmutable;
 use DateTimeInterface;
 use GraphQL\Error\InvariantViolation;
 use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\CustomScalarType;
 use GraphQL\Utils\Utils;
-use DateTimeImmutable;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
+
 use function assert;
 use function Safe\preg_match;
 use function Safe\substr;
@@ -42,7 +43,7 @@ class DateTimeType extends CustomScalarType
     /**
      * @param mixed $value
      */
-    public function serialize($value) : string
+    public function serialize($value): string
     {
         if (! $value instanceof DateTimeInterface) {
             throw new InvariantViolation(
@@ -56,7 +57,7 @@ class DateTimeType extends CustomScalarType
     /**
      * @param mixed $value
      */
-    public function parseValue($value) : DateTimeImmutable
+    public function parseValue($value): DateTimeImmutable
     {
         if (! $this->validateDatetime($value)) {
             throw InvalidArgument::valueNotIso8601Compliant($value);
@@ -71,7 +72,7 @@ class DateTimeType extends CustomScalarType
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function parseLiteral($node, ?array $variables = null) : ?DateTimeImmutable
+    public function parseLiteral($node, ?array $variables = null): ?DateTimeImmutable
     {
         if (! $node instanceof StringValueNode) {
             return null;
@@ -80,7 +81,7 @@ class DateTimeType extends CustomScalarType
         return $this->parseValue($node->value);
     }
 
-    private function validateDatetime(string $value) : bool
+    private function validateDatetime(string $value): bool
     {
         if (preg_match(self::RFC_3339_REGEX, $value) !== 1) {
             return false;
@@ -92,7 +93,7 @@ class DateTimeType extends CustomScalarType
         return $this->validateDate(substr($value, 0, $tPosition));
     }
 
-    private function validateDate(string $date) : bool
+    private function validateDate(string $date): bool
     {
         // Verify the correct number of days for the month contained in the date-string.
         $year  = (int) substr($date, 0, 4);
@@ -106,6 +107,7 @@ class DateTimeType extends CustomScalarType
                 }
 
                 return $this->isLeapYear($year) || $day <= 28;
+
             case 4: // April
             case 6: // June
             case 9: // September
@@ -120,7 +122,7 @@ class DateTimeType extends CustomScalarType
         return true;
     }
 
-    private function isLeapYear(int $year) : bool
+    private function isLeapYear(int $year): bool
     {
         return ($year % 4 === 0 && $year % 100 !== 0) || $year % 400 === 0;
     }

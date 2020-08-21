@@ -6,5 +6,5 @@ namespace SimPod\GraphQLUtils\Error;
 
 abstract class Error extends \GraphQL\Error\Error
 {
-    abstract public function getType() : string;
+    abstract public function getType(): string;
 }
