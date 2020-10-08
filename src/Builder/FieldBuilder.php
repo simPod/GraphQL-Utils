@@ -9,8 +9,8 @@ use GraphQL\Type\Definition\Type;
 
 class FieldBuilder
 {
-    /** @var mixed[] */
-    private $parameters;
+    /** @var array<string, mixed|array<string|mixed>> */
+    private $parameters = [];
 
     final private function __construct(string $name, Type $type)
     {
@@ -51,6 +51,8 @@ class FieldBuilder
     }
 
     /**
+     * @see ResolveInfo
+     *
      * @param callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed $resolver
      *
      * @return static

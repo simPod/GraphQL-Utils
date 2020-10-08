@@ -14,6 +14,7 @@ class FormattedError extends \GraphQL\Error\FormattedError
      */
     public static function createFromException(Throwable $exception, int $debug = DebugFlag::NONE, $internalErrorMessage = null): array
     {
+        /** @var array<string, array<string, mixed>> $arrayError */
         $arrayError = parent::createFromException($exception, $debug, $internalErrorMessage);
 
         if ($exception instanceof \GraphQL\Error\Error && $exception->getPrevious() instanceof Error) {

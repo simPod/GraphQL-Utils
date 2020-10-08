@@ -12,8 +12,8 @@ class UnionBuilder extends TypeBuilder
     /** @var callable(object, mixed, ResolveInfo)|null */
     private $resolveType;
 
-    /** @var ObjectType[] */
-    private $types;
+    /** @var ObjectType[]|null */
+    private $types = null;
 
     /**
      * @return static
