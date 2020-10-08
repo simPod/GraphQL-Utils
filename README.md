@@ -6,6 +6,7 @@
 [![Packagist](https://poser.pugx.org/simpod/graphql-utils/v/stable.svg)](https://packagist.org/packages/simpod/graphql-utils)
 [![GitHub Issues](https://img.shields.io/github/issues/simPod/GraphQL-Utils.svg?style=flat-square)](https://github.com/simPod/GraphQL-Utils/issues)
 [![Type Coverage](https://shepherd.dev/github/simPod/GraphQL-Utils/coverage.svg)](https://shepherd.dev/github/simPod/GraphQL-Utils)
+[![Infection MSI](https://badge.stryker-mutator.io/github.com/simPod/GraphQL-Utils/master)](https://infection.github.io)
 
 ## Contents
 - [Installation](#installation)
