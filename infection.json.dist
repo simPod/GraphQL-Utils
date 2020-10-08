@@ -1,0 +1,18 @@
+{
+    "bootstrap": "./tests/bootstrap.php",
+    "timeout": 10,
+    "source": {
+        "directories": [
+            "src"
+        ]
+    },
+    "mutators": {
+        "@default": true
+    },
+    "logs": {
+        "badge": {
+            "branch": "master"
+        },
+        "text": "infection-log.txt"
+    }
+}

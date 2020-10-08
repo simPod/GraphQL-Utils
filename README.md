@@ -5,6 +5,7 @@
 [![Downloads](https://poser.pugx.org/simpod/graphql-utils/d/total.svg)](https://packagist.org/packages/simpod/graphql-utils)
 [![Packagist](https://poser.pugx.org/simpod/graphql-utils/v/stable.svg)](https://packagist.org/packages/simpod/graphql-utils)
 [![GitHub Issues](https://img.shields.io/github/issues/simPod/GraphQL-Utils.svg?style=flat-square)](https://github.com/simPod/GraphQL-Utils/issues)
+[![Type Coverage](https://shepherd.dev/github/simPod/GraphQL-Utils/coverage.svg)](https://shepherd.dev/github/simPod/GraphQL-Utils)
 
 ## Contents
 - [Installation](#installation)
