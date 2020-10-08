@@ -11,9 +11,11 @@ use GraphQL\Language\AST\Node;
 use GraphQL\Language\AST\StringValueNode;
 use GraphQL\Type\Definition\CustomScalarType;
 use GraphQL\Utils\Utils;
+use InvalidArgumentException;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 use function assert;
+use function is_string;
 use function Safe\preg_match;
 use function Safe\substr;
 use function strpos;
@@ -59,6 +61,10 @@ class DateTimeType extends CustomScalarType
      */
     public function parseValue($value): DateTimeImmutable
     {
+        if (! is_string($value)) {
+            throw new InvalidArgumentException();
+        }
+
         if (! $this->validateDatetime($value)) {
             throw InvalidArgument::valueNotIso8601Compliant($value);
         }
@@ -67,18 +73,17 @@ class DateTimeType extends CustomScalarType
     }
 
     /**
-     * @param Node         $node
      * @param mixed[]|null $variables
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
      */
-    public function parseLiteral($node, ?array $variables = null): ?DateTimeImmutable
+    public function parseLiteral(Node $valueNode, ?array $variables = null): ?DateTimeImmutable
     {
-        if (! $node instanceof StringValueNode) {
+        if (! $valueNode instanceof StringValueNode) {
             return null;
         }
 
-        return $this->parseValue($node->value);
+        return $this->parseValue($valueNode->value);
     }
 
     private function validateDatetime(string $value): bool

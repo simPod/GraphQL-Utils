@@ -15,8 +15,8 @@ abstract class TypeBuilder
     /** @var string */
     private $name;
 
-    /** @var string */
-    private $description;
+    /** @var string|null */
+    private $description = null;
 
     final protected function __construct(string $name)
     {
