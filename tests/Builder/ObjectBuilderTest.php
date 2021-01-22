@@ -13,12 +13,11 @@ use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 final class ObjectBuilderTest extends TestCase
 {
-    public function testCreate() : void
+    public function testCreate(): void
     {
         $description = 'To the sichuan-style nachos add ghee, noodles, buttermilk and heated herring.';
         $name        = 'SomeType';
-        $interface   = new class() extends InterfaceType
-        {
+        $interface   = new class () extends InterfaceType {
             public function __construct()
             {
                 $builder = ObjectBuilder::create('InterfaceA');
@@ -26,7 +25,7 @@ final class ObjectBuilderTest extends TestCase
             }
         };
 
-        $fieldResolver = static function () : void {
+        $fieldResolver = static function (): void {
         };
 
         $builder = ObjectBuilder::create($name);
@@ -49,7 +48,7 @@ final class ObjectBuilderTest extends TestCase
         self::assertCount(1, $object['fields']);
     }
 
-    public function testInvalidName() : void
+    public function testInvalidName(): void
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('does not match pattern');

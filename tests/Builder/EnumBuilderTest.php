@@ -10,7 +10,7 @@ use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 final class EnumBuilderTest extends TestCase
 {
-    public function testCreate() : void
+    public function testCreate(): void
     {
         $name = 'SomeEnum';
 
@@ -33,7 +33,7 @@ final class EnumBuilderTest extends TestCase
         self::assertSame('Value 2 Description', $values['Value2']['description']);
     }
 
-    public function testInvalidValue() : void
+    public function testInvalidValue(): void
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('does not match pattern');

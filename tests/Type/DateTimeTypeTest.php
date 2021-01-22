@@ -21,7 +21,7 @@ final class DateTimeTypeTest extends TestCase
     /**
      * @dataProvider dateProviderSerialize
      */
-    public function testSerialize(string $expectedValue, DateTimeInterface $dateTime) : void
+    public function testSerialize(string $expectedValue, DateTimeInterface $dateTime): void
     {
         $dateTimeType = new DateTimeType();
         $value        = $dateTimeType->serialize($dateTime);
@@ -32,7 +32,7 @@ final class DateTimeTypeTest extends TestCase
     /**
      * @return mixed[][]|Generator
      */
-    public function dateProviderSerialize() : iterable
+    public function dateProviderSerialize(): iterable
     {
         yield ['2018-12-31T01:02:03+00:00', new DateTime('2018-12-31 01:02:03')];
         yield ['2018-12-31T01:02:03+00:00', new DateTimeImmutable('2018-12-31 01:02:03')];
@@ -41,7 +41,7 @@ final class DateTimeTypeTest extends TestCase
     /**
      * @dataProvider dateProviderSerialize
      */
-    public function testSerializeInvalidType() : void
+    public function testSerializeInvalidType(): void
     {
         $this->expectException(InvariantViolation::class);
         $this->expectExceptionMessage('DateTime is not an instance of DateTimeImmutable nor DateTime:');
@@ -53,7 +53,7 @@ final class DateTimeTypeTest extends TestCase
     /**
      * @dataProvider dataProviderParseValue
      */
-    public function testParseValue(string $valueToParse, DateTimeImmutable $expected) : void
+    public function testParseValue(string $valueToParse, DateTimeImmutable $expected): void
     {
         $dateTimeType = new DateTimeType();
 
@@ -66,13 +66,14 @@ final class DateTimeTypeTest extends TestCase
     /**
      * @return mixed[][]
      */
-    public function dataProviderParseValue() : iterable
+    public function dataProviderParseValue(): iterable
     {
         // Datetime with hours, minutes and seconds
         yield ['2016-02-01T00:00:15Z', new DateTimeImmutable('2016-02-01 0:0:15')];
         yield ['2016-11-01T00:00:00-11:00', new DateTimeImmutable('2016-11-01 11:00:00')];
         yield ['2017-01-07T11:25:00+01:00', new DateTimeImmutable('2017-01-07 10:25')];
         yield ['2017-01-07T00:00:00+01:20', new DateTimeImmutable('2017-01-06 22:40')];
+
         // Datetime with hours, minutes, seconds and fractional seconds
         yield ['2016-02-01T00:00:00.1Z', new DateTimeImmutable('2016-02-01 00:00:00.100')];
         yield ['2016-02-01T00:00:00.000Z', new DateTimeImmutable('2016-02-01')];
@@ -84,7 +85,7 @@ final class DateTimeTypeTest extends TestCase
     /**
      * @dataProvider dataProviderParseValueInvalidFormatOrValue
      */
-    public function testParseValueInvalidFormatOrValue(string $value) : void
+    public function testParseValueInvalidFormatOrValue(string $value): void
     {
         $this->expectException(InvalidArgument::class);
         $this->expectExceptionMessage('DateTime type expects input value to be ISO 8601 compliant.');
@@ -96,7 +97,7 @@ final class DateTimeTypeTest extends TestCase
     /**
      * @return string[][]
      */
-    public function dataProviderParseValueInvalidFormatOrValue() : iterable
+    public function dataProviderParseValueInvalidFormatOrValue(): iterable
     {
         yield ['2017-01-001T00:00:00Z'];
         yield ['2017-02-31T00:00:00Z'];
@@ -106,7 +107,7 @@ final class DateTimeTypeTest extends TestCase
         yield ['2020-02-30T00:00:00Z'];
     }
 
-    public function testParseLiteral() : void
+    public function testParseLiteral(): void
     {
         $dateTimeType = new DateTimeType();
         $actual       = $dateTimeType->parseLiteral(new StringValueNode(['value' => '2018-12-31T01:02:03+00:00']));
@@ -118,7 +119,7 @@ final class DateTimeTypeTest extends TestCase
         );
     }
 
-    public function testParseLiteralIncompatibleNode() : void
+    public function testParseLiteralIncompatibleNode(): void
     {
         $dateTimeType = new DateTimeType();
 

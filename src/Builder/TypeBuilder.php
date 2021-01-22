@@ -12,11 +12,9 @@ abstract class TypeBuilder
 {
     public const VALID_NAME_PATTERN = '~^[_a-zA-Z][_a-zA-Z0-9]*$~';
 
-    /** @var string */
-    private $name;
+    private string $name;
 
-    /** @var string|null */
-    private $description = null;
+    private ?string $description = null;
 
     final protected function __construct(string $name)
     {

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Tests\Error;
 
-final class CustomError extends \SimPod\GraphQLUtils\Error\Error
+use SimPod\GraphQLUtils\Error\Error;
+
+final class CustomError extends Error
 {
-    public function getType() : string
+    public function getType(): string
     {
         return 'CUSTOM_ERROR';
     }

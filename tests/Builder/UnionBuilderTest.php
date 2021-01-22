@@ -11,7 +11,7 @@ use SimPod\GraphQLUtils\Builder\UnionBuilder;
 
 final class UnionBuilderTest extends TestCase
 {
-    public function testCreate() : void
+    public function testCreate(): void
     {
         $name = 'InterfaceA';
 
@@ -27,7 +27,7 @@ final class UnionBuilderTest extends TestCase
                 [$typeA, $typeB]
             )
             ->setResolveType(
-                static function (bool $value) use ($typeA, $typeB) : ObjectType {
+                static function (bool $value) use ($typeA, $typeB): ObjectType {
                     return $value ? $typeA : $typeB;
                 }
             )

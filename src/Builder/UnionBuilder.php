@@ -13,7 +13,7 @@ class UnionBuilder extends TypeBuilder
     private $resolveType;
 
     /** @var ObjectType[]|null */
-    private $types = null;
+    private ?array $types = null;
 
     /**
      * @return static

@@ -1,0 +1,31 @@
+name: Infection
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  Infection:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+        with:
+          fetch-depth: 2
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          php-version: 7.4
+          coverage: "pcov"
+
+      - name: "Install dependencies with Composer"
+        uses: "ramsey/composer-install@v1"
+
+      - name: Run Infection
+        run: vendor/bin/roave-infection-static-analysis-plugin --min-msi=64 --min-covered-msi=66 --log-verbosity=none -s
+        env:
+          INFECTION_BADGE_API_KEY: ${{ secrets.INFECTION_BADGE_API_KEY }}

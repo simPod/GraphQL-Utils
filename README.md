@@ -1,12 +1,11 @@
 # PHP GraphQL Utils for graphql-php
 
-[![Build Status](https://github.com/simPod/GraphQL-Utils/workflows/CI/badge.svg?branch=master)](https://github.com/simPod/GraphQL-Utils/actions)
-[![Coverage Status](https://coveralls.io/repos/github/simPod/GraphQL-Utils/badge.svg?branch=master)](https://coveralls.io/github/simPod/GraphQL-Utils?branch=master)
-[![Downloads](https://poser.pugx.org/simpod/graphql-utils/d/total.svg)](https://packagist.org/packages/simpod/graphql-utils)
-[![Packagist](https://poser.pugx.org/simpod/graphql-utils/v/stable.svg)](https://packagist.org/packages/simpod/graphql-utils)
-[![GitHub Issues](https://img.shields.io/github/issues/simPod/GraphQL-Utils.svg?style=flat-square)](https://github.com/simPod/GraphQL-Utils/issues)
-[![Type Coverage](https://shepherd.dev/github/simPod/GraphQL-Utils/coverage.svg)](https://shepherd.dev/github/simPod/GraphQL-Utils)
-[![Infection MSI](https://badge.stryker-mutator.io/github.com/simPod/GraphQL-Utils/master)](https://infection.github.io)
+[![GitHub Actions][GA Image]][GA Link]
+[![Shepherd Type][Shepherd Image]][Shepherd Link]
+[![Code Coverage][Coverage Image]][CodeCov Link]
+[![Downloads][Downloads Image]][Packagist Link]
+[![Packagist][Packagist Image]][Packagist Link]
+[![Infection MSI][Infection Image]][Infection Link]
 
 ## Contents
 - [Installation](#installation)
@@ -345,10 +344,32 @@ Error types will then be provided in your response so client can easier identify
     {
       "message": "No CustomerId provided",
       "extensions": {
-          "type": "INVALID_CUSTOMER_ID_PROVIDED",
-          "category": "graphql"
+        "type": "INVALID_CUSTOMER_ID_PROVIDED",
+        "category": "graphql"
       }
     }
   ]
 }
 ```
+
+[GA Image]: https://github.com/simPod/GraphQL-Utils/workflows/CI/badge.svg
+
+[GA Link]: https://github.com/simPod/GraphQL-Utils/actions?query=workflow%3A%22CI%22+branch%3Amaster
+
+[Shepherd Image]: https://shepherd.dev/github/simPod/GraphQL-Utils/coverage.svg
+
+[Shepherd Link]: https://shepherd.dev/github/simPod/GraphQL-Utils
+
+[Coverage Image]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/master/graph/badge.svg
+
+[CodeCov Link]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/master
+
+[Downloads Image]: https://poser.pugx.org/simpod/graphql-utils/d/total.svg
+
+[Packagist Image]: https://poser.pugx.org/simpod/graphql-utils/v/stable.svg
+
+[Packagist Link]: https://packagist.org/packages/simpod/graphql-utils
+
+[Infection Image]: https://badge.stryker-mutator.io/github.com/simPod/GraphQL-Utils/master
+
+[Infection Link]: https://infection.github.io

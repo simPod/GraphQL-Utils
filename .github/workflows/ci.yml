@@ -1,4 +1,4 @@
-name: CI
+name: "CI"
 
 on:
   pull_request:
@@ -6,147 +6,69 @@ on:
     branches:
       - "master"
   schedule:
-    - cron: "0 17 * * *"
+    - cron: "42 3 * * *"
 
 jobs:
-  coding-standard:
-    runs-on: ubuntu-18.04
-    name: Coding Standard
+  phpunit:
+    name: "PHPUnit"
+    runs-on: "ubuntu-20.04"
 
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install PHP
-        uses: shivammathur/setup-php@2.6.0
-        with:
-          php-version: 7.4
-          coverage: none
-          extensions: json
-          tools: cs2pr
-
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Install Dependencies
-        run: composer install ${DEPENDENCIES}
-
-      - name: Coding Standard
-        run: vendor/bin/phpcs -q --report=checkstyle | cs2pr
-
-  phpstan:
-    runs-on: ubuntu-18.04
-    name: PHPStan
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Install PHP
-        uses: shivammathur/setup-php@2.6.0
-        with:
-          php-version: 7.4
-          coverage: none
-          extensions: json
-          tools: cs2pr
-
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Install Dependencies
-        run: composer install ${DEPENDENCIES}
-
-      - name: PHPStan
-        run: vendor/bin/phpstan analyse --error-format=checkstyle | cs2pr
-
-  coverage:
-    runs-on: ubuntu-18.04
-    name: Code Coverage
-
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.ref }}
-
-      - name: Install PHP
-        uses: shivammathur/setup-php@2.6.0
-        with:
-          php-version: 7.4
-          coverage: pcov
-          extensions: json
-
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
-
-      - name: Cache dependencies
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
-
-      - name: Install Dependencies
-        run: composer install ${DEPENDENCIES}
-
-      - name: Code coverage
-        run: |
-          ./vendor/bin/phpunit --coverage-clover /tmp/coverage/clover.xml
-
-      - name: Report to Coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_RUN_LOCALLY: 1
-        run: vendor/bin/php-coveralls --coverage_clover /tmp/coverage/clover.xml --json_path /tmp/coverage/coveralls.json
-
-  tests:
-    name: Tests
-    runs-on: ubuntu-18.04
     strategy:
       matrix:
-        php: [ 7.3, 7.4 ]
-        dependencies: [ "", --prefer-lowest ]
+        php-version:
+          - "7.4"
+          - "8.0"
+        dependencies:
+          - "highest"
+        include:
+          - dependencies: "lowest"
+            php-version: "7.4"
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Install PHP
-        uses: shivammathur/setup-php@2.6.0
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
         with:
-          php-version: ${{ matrix.php }}
-          coverage: none
-          extensions: json, mbstring
-      - name: Get Composer Cache Directory
-        id: composer-cache
-        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+          fetch-depth: 2
 
-      - name: Cache dependencies
-        uses: actions/cache@v1
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
         with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('composer.json') }}
-          restore-keys: ${{ runner.os }}-composer-
+          php-version: "${{ matrix.php-version }}"
+          coverage: "pcov"
+          ini-values: "zend.assertions=1"
 
-      - name: Install Dependencies
-        run: composer install ${DEPENDENCIES}
+      - name: "Install dependencies with Composer"
+        uses: "ramsey/composer-install@v1"
+        with:
+          dependency-versions: "${{ matrix.dependencies }}"
 
-      - name: Run tests
-        run: |
-          export $ENV
-          ./vendor/bin/phpunit
-        env:
-          ENV: ${{ matrix.env}}
+      - name: "Run PHPUnit"
+        run: "vendor/bin/phpunit --coverage-clover=coverage.xml"
+
+      - name: "Upload coverage file"
+        uses: "actions/upload-artifact@v2"
+        with:
+          name: "phpunit-${{ matrix.deps }}-${{ matrix.php-version }}.coverage"
+          path: "coverage.xml"
+
+  upload_coverage:
+    name: "Upload coverage to Codecov"
+    runs-on: "ubuntu-20.04"
+    needs:
+      - "phpunit"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+        with:
+          fetch-depth: 2
+
+      - name: "Download coverage files"
+        uses: "actions/download-artifact@v2"
+        with:
+          path: "reports"
+
+      - name: "Upload to Codecov"
+        uses: "codecov/codecov-action@v1"
+        with:
+          directory: reports

@@ -13,7 +13,7 @@ use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 final class InterfaceBuilderTest extends TestCase
 {
-    public function testCreate() : void
+    public function testCreate(): void
     {
         $name = 'InterfaceA';
 
@@ -27,7 +27,7 @@ final class InterfaceBuilderTest extends TestCase
                 ]
             )
             ->setResolveType(
-                static function (bool $value) : Type {
+                static function (bool $value): Type {
                     if ($value) {
                         return Type::string();
                     }
@@ -47,7 +47,7 @@ final class InterfaceBuilderTest extends TestCase
         self::assertSame(Type::int(), $interface['resolveType'](false));
     }
 
-    public function testInvalidValue() : void
+    public function testInvalidValue(): void
     {
         $this->expectException(InvalidArgument::class);
 

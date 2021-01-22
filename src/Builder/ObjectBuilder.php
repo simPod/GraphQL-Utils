@@ -10,7 +10,7 @@ use GraphQL\Type\Definition\ResolveInfo;
 class ObjectBuilder extends TypeBuilder
 {
     /** @var InterfaceType[] */
-    private $interfaces = [];
+    private array $interfaces = [];
 
     /** @var callable|mixed[][] */
     private $fields = [];

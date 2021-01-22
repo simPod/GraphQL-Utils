@@ -12,22 +12,20 @@ use SimPod\GraphQLUtils\Error\FormattedError;
 
 final class FormattedErrorTest extends TestCase
 {
-    public function testNonDebug() : void
+    public function testNonDebug(): void
     {
         $exception = new Exception('When smashing sun-dried shrimps, be sure they are room temperature.');
 
         self::assertSame(
             [
                 'message'    => 'Internal server error',
-                'extensions' => [
-                    'category' => 'internal',
-                ],
+                'extensions' => ['category' => 'internal'],
             ],
             FormattedError::createFromException($exception)
         );
     }
 
-    public function testDebug() : void
+    public function testDebug(): void
     {
         $exception = new Exception('When smashing sun-dried shrimps, be sure they are room temperature.');
 
@@ -35,24 +33,20 @@ final class FormattedErrorTest extends TestCase
             [
                 'debugMessage' => 'When smashing sun-dried shrimps, be sure they are room temperature.',
                 'message'      => 'Internal server error',
-                'extensions'   => [
-                    'category' => 'internal',
-                ],
+                'extensions'   => ['category' => 'internal'],
             ],
             FormattedError::createFromException($exception, DebugFlag::INCLUDE_DEBUG_MESSAGE)
         );
     }
 
-    public function testInternalMessageModification() : void
+    public function testInternalMessageModification(): void
     {
         $exception = new Exception('When smashing sun-dried shrimps, be sure they are room temperature.');
 
         self::assertSame(
             [
                 'message'    => 'Try grilling smoothie jumbled with salad cream, decorateed with green curry.',
-                'extensions' => [
-                    'category' => 'internal',
-                ],
+                'extensions' => ['category' => 'internal'],
             ],
             FormattedError::createFromException(
                 $exception,
@@ -62,10 +56,9 @@ final class FormattedErrorTest extends TestCase
         );
     }
 
-    public function testGraphQLCustomError() : void
+    public function testGraphQLCustomError(): void
     {
-        $error = new class extends Error
-        {
+        $error = new class extends Error {
             public function __construct()
             {
                 parent::__construct(
@@ -74,7 +67,8 @@ final class FormattedErrorTest extends TestCase
                     null,
                     [],
                     null,
-                    new CustomError(''));
+                    new CustomError('')
+                );
             }
         };
 

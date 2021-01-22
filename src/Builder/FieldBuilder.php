@@ -10,7 +10,7 @@ use GraphQL\Type\Definition\Type;
 class FieldBuilder
 {
     /** @var array<string, mixed|array<string|mixed>> */
-    private $parameters = [];
+    private array $parameters = [];
 
     final private function __construct(string $name, Type $type)
     {
