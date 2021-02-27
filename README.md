@@ -8,16 +8,17 @@
 [![Infection MSI][Infection Image]][Infection Link]
 
 ## Contents
+
 - [Installation](#installation)
 - [Features](#features)
-  - [Schema Builders](#schema-builders)
-    - [ObjectBuilder and FieldBuilder](#objectbuilder-and-fieldbuilder)
-    - [EnumBuilder](#enumbuilder)
-    - [InterfaceBuilder](#interfacebuilder)
-    - [UnionBuilder](#unionbuilder)
-  - [Types](#types)
-    - [DateTime](#%EF%B8%8F-datetime)
-  - [Error Handling](#error-handling)
+    - [Schema Builders](#schema-builders)
+        - [ObjectBuilder and FieldBuilder](#objectbuilder-and-fieldbuilder)
+        - [EnumBuilder](#enumbuilder)
+        - [InterfaceBuilder](#interfacebuilder)
+        - [UnionBuilder](#unionbuilder)
+    - [Types](#types)
+        - [DateTime](#%EF%B8%8F-datetime)
+    - [Error Handling](#error-handling)
 
 ## Installation
 
@@ -28,11 +29,10 @@ composer require simpod/graphql-utils
 ```
 
 ## Features
- 
+
 ### Schema Builders
 
-Instead of defining your schema as an array, use can use more objective-oriented approach.
-This library provides set of strictly typed builders that help you build your schema.
+Instead of defining your schema as an array, use can use more objective-oriented approach. This library provides set of strictly typed builders that help you build your schema.
 
 #### ObjectBuilder and FieldBuilder
 
@@ -269,7 +269,7 @@ $character = new UnionType(
 ### Types
 
 #### 🕰️ DateTime
- 
+
 scalar type that produces `scalar DateTime` in your schema.
 
 [`SimPod\GraphQLUtils\Type\DateTimeType`](https://github.com/simPod/GraphQL-Utils/blob/master/src/Type/DateTimeType.php)
@@ -340,15 +340,15 @@ Error types will then be provided in your response so client can easier identify
 
 ```json
 {
-  "errors": [
-    {
-      "message": "No CustomerId provided",
-      "extensions": {
-        "type": "INVALID_CUSTOMER_ID_PROVIDED",
-        "category": "graphql"
-      }
-    }
-  ]
+    "errors": [
+        {
+            "message": "No CustomerId provided",
+            "extensions": {
+                "type": "INVALID_CUSTOMER_ID_PROVIDED",
+                "category": "validation"
+            }
+        }
+    ]
 }
 ```
 
