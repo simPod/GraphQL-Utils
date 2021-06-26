@@ -23,9 +23,7 @@ final class InvalidArgument extends Exception implements ClientAware
         return new self(sprintf('Name "%s" does not match pattern "%s"', $invalidName, TypeBuilder::VALID_NAME_PATTERN));
     }
 
-    /**
-     * @param mixed $invalidValue
-     */
+    /** @param mixed $invalidValue */
     public static function valueNotIso8601Compliant($invalidValue): self
     {
         return new self(sprintf('DateTime type expects input value to be ISO 8601 compliant. Given invalid value "%s"', (string) $invalidValue));
