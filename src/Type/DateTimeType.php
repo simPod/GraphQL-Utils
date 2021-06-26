@@ -48,9 +48,7 @@ class DateTimeType extends CustomScalarType
         );
     }
 
-    /**
-     * @param mixed $value
-     */
+    /** @param mixed $value */
     public function serialize($value): string
     {
         if (! $value instanceof DateTimeInterface) {
@@ -62,9 +60,7 @@ class DateTimeType extends CustomScalarType
         return $value->format(DateTimeInterface::ATOM);
     }
 
-    /**
-     * @param mixed $value
-     */
+    /** @param mixed $value */
     public function parseValue($value): DateTimeImmutable
     {
         if (! is_string($value)) {
@@ -78,11 +74,7 @@ class DateTimeType extends CustomScalarType
         return new DateTimeImmutable($value);
     }
 
-    /**
-     * @param mixed[]|null $variables
-     *
-     * @phpcsSuppress SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingNativeTypeHint
-     */
+    /** @param mixed[]|null $variables */
     public function parseLiteral(Node $valueNode, ?array $variables = null): ?DateTimeImmutable
     {
         if (! $valueNode instanceof StringValueNode) {
