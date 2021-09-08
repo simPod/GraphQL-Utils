@@ -20,7 +20,7 @@ final class FieldBuilderTest extends TestCase
                     return 'Resolver result';
                 }
             )
-            ->addArgument('arg1', Type::int(), 'Argument Description')
+            ->addArgument('arg1', Type::int(), 'Argument Description', 1)
             ->build();
 
         self::assertSame('SomeField', $field['name']);
@@ -36,5 +36,6 @@ final class FieldBuilderTest extends TestCase
         self::assertArrayHasKey('arg1', $args);
         self::assertSame(Type::int(), $args['arg1']['type']);
         self::assertSame('Argument Description', $args['arg1']['description']);
+        self::assertSame(1, $args['arg1']['defaultValue']);
     }
 }
