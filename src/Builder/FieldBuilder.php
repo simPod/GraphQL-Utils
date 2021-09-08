@@ -37,14 +37,20 @@ class FieldBuilder
     }
 
     /**
+     * @param mixed $defaultValue
+     *
      * @return static
      */
-    public function addArgument(string $name, Type $type, ?string $description = null): self
+    public function addArgument(string $name, Type $type, ?string $description = null, $defaultValue = null): self
     {
         $this->parameters['args'][$name] = ['type' => $type];
 
         if ($description !== null) {
             $this->parameters['args'][$name]['description'] = $description;
+        }
+
+        if ($defaultValue !== null) {
+            $this->parameters['args'][$name]['defaultValue'] = $defaultValue;
         }
 
         return $this;
