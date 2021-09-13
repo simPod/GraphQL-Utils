@@ -36,7 +36,7 @@ abstract class TypeBuilder
     }
 
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function build(): array
     {

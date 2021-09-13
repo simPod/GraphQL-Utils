@@ -41,9 +41,6 @@ class EnumBuilder extends TypeBuilder
         return $this;
     }
 
-    /**
-     * @return mixed[]
-     */
     public function build(): array
     {
         $parameters           = parent::build();

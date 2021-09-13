@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Tests\Builder;
 
+use GraphQL\Type\Definition\FieldDefinition;
 use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\Type;
 use PHPUnit\Framework\TestCase;
@@ -35,6 +36,7 @@ final class ObjectBuilderTest extends TestCase
             ->setFields(
                 [
                     FieldBuilder::create('SomeField', Type::string())->build(),
+                    FieldDefinition::create(FieldBuilder::create('Another', Type::string())->build()),
                 ]
             )
             ->setFieldResolver($fieldResolver)
@@ -45,7 +47,7 @@ final class ObjectBuilderTest extends TestCase
         self::assertArrayHasKey('fields', $object);
         self::assertIsArray($object['fields']);
         self::assertSame($fieldResolver, $object['resolveField']);
-        self::assertCount(1, $object['fields']);
+        self::assertCount(2, $object['fields']);
     }
 
     public function testInvalidName(): void
