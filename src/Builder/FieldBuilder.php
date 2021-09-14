@@ -81,7 +81,7 @@ class FieldBuilder
     }
 
     /**
-     * @return mixed[]
+     * @return array<string, mixed>
      */
     public function build(): array
     {

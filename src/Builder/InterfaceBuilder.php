@@ -19,9 +19,6 @@ class InterfaceBuilder extends ObjectBuilder
         return $this;
     }
 
-    /**
-     * @return mixed[]
-     */
     public function build(): array
     {
         $parameters                = parent::build();

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
+use GraphQL\Type\Definition\FieldDefinition;
 use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\ResolveInfo;
 
@@ -12,7 +13,7 @@ class ObjectBuilder extends TypeBuilder
     /** @var InterfaceType[] */
     private array $interfaces = [];
 
-    /** @var callable|mixed[][] */
+    /** @var callable():array<FieldDefinition|array<string, mixed>>|array<FieldDefinition|array<string, mixed>> */
     private $fields = [];
 
     /** @var callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed|null */
@@ -37,7 +38,7 @@ class ObjectBuilder extends TypeBuilder
     }
 
     /**
-     * @param callable|mixed[][] $fields
+     * @param callable():array<FieldDefinition|array<string, mixed>>|array<FieldDefinition|array<string, mixed>> $fields
      *
      * @return static
      */
@@ -60,9 +61,6 @@ class ObjectBuilder extends TypeBuilder
         return $this;
     }
 
-    /**
-     * @return mixed[]
-     */
     public function build(): array
     {
         $parameters                 = parent::build();
