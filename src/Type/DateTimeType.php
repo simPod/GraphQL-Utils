@@ -15,6 +15,7 @@ use InvalidArgumentException;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 use function assert;
+use function explode;
 use function is_string;
 use function Safe\preg_match;
 use function Safe\substr;
@@ -99,17 +100,19 @@ class DateTimeType extends CustomScalarType
     private function validateDate(string $date): bool
     {
         // Verify the correct number of days for the month contained in the date-string.
-        $year  = (int) substr($date, 0, 4);
-        $month = (int) substr($date, 5, 2);
-        $day   = (int) substr($date, 8, 2);
+        [$year, $month, $day] = explode('-', $date);
+        $year                 = (int) $year;
+        $month                = (int) $month;
+        $day                  = (int) $day;
 
         switch ($month) {
             case 2: // February
-                if ($this->isLeapYear($year) && $day > 29) {
+                $isLeapYear = $this->isLeapYear($year);
+                if ($isLeapYear && $day > 29) {
                     return false;
                 }
 
-                return $this->isLeapYear($year) || $day <= 28;
+                return $isLeapYear || $day <= 28;
 
             case 4: // April
             case 6: // June
