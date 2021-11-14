@@ -56,7 +56,7 @@ jobs:
       - name: "Install dependencies with Composer"
         uses: "ramsey/composer-install@v1"
 
-      - name: "Run a static analysis with phpstan/phpstan"
+      - name: "Run a static analysis with vimeo/psalm"
         run: "vendor/bin/psalm --output-format=github --shepherd --taint-analysis --report=results.sarif"
 
       - name: "Upload Security Analysis results to GitHub"
