@@ -370,6 +370,6 @@ Error types will then be provided in your response so client can easier identify
 
 [Packagist Link]: https://packagist.org/packages/simpod/graphql-utils
 
-[Infection Image]: https://badge.stryker-mutator.io/github.com/simPod/GraphQL-Utils/master
+[Infection Image]: https://badge.stryker-mutator.io/github.com/simPod/GraphQL-Utils/0.5.x
 
-[Infection Link]: https://infection.github.io
+[Infection Link]: https://dashboard.stryker-mutator.io/reports/github.com/simPod/GraphQL-Utils/0.5.x
