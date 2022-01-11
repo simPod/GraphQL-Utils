@@ -27,7 +27,10 @@ final class UnionBuilderTest extends TestCase
                 [$typeA, $typeB]
             )
             ->setResolveType(
-                static function (bool $value) use ($typeA, $typeB): ObjectType {
+                /** @param mixed $value */
+                static function ($value) use ($typeA, $typeB): ObjectType {
+                    self::assertIsBool($value);
+
                     return $value ? $typeA : $typeB;
                 }
             )
@@ -41,6 +44,7 @@ final class UnionBuilderTest extends TestCase
         self::assertCount(2, $union['types']);
 
         self::assertArrayHasKey('resolveType', $union);
+        self::assertIsCallable($union['resolveType']);
         self::assertSame($typeA, $union['resolveType'](true));
         self::assertSame($typeB, $union['resolveType'](false));
     }

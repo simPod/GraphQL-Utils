@@ -6,6 +6,7 @@ namespace SimPod\GraphQLUtils\Exception;
 
 use Exception;
 use GraphQL\Error\ClientAware;
+use GraphQL\Utils\Utils;
 use SimPod\GraphQLUtils\Builder\TypeBuilder;
 use Throwable;
 
@@ -26,7 +27,10 @@ final class InvalidArgument extends Exception implements ClientAware
     /** @param mixed $invalidValue */
     public static function valueNotIso8601Compliant($invalidValue): self
     {
-        return new self(sprintf('DateTime type expects input value to be ISO 8601 compliant. Given invalid value "%s"', (string) $invalidValue));
+        return new self(sprintf(
+            'DateTime type expects input value to be ISO 8601 compliant. Given invalid value "%s"',
+            Utils::printSafeJson($invalidValue)
+        ));
     }
 
     public function isClientSafe(): bool
