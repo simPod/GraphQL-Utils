@@ -35,7 +35,7 @@ class DateTimeType extends CustomScalarType
 
     /**
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.PropertyTypeHint.MissingNativeTypeHint
-     * @var string
+     * @var string|null
      */
     public $description = self::DESCRIPTION;
 

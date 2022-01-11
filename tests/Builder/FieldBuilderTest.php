@@ -31,6 +31,7 @@ final class FieldBuilderTest extends TestCase
         self::assertIsCallable($field['resolve']);
         self::assertSame('Resolver result', $field['resolve']());
 
+        self::assertIsArray($field['args']);
         self::assertCount(1, $field['args']);
         $args = $field['args'];
         self::assertArrayHasKey('arg1', $args);

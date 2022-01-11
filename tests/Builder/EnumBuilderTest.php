@@ -24,6 +24,7 @@ final class EnumBuilderTest extends TestCase
 
         $values = $object['values'];
 
+        self::assertIsArray($values);
         self::assertCount(2, $values);
 
         self::assertArrayHasKey('EnumName', $values);
