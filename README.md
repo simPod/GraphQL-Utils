@@ -354,15 +354,15 @@ Error types will then be provided in your response so client can easier identify
 
 [GA Image]: https://github.com/simPod/GraphQL-Utils/workflows/CI/badge.svg
 
-[GA Link]: https://github.com/simPod/GraphQL-Utils/actions?query=workflow%3A%22CI%22+branch%3Amaster
+[GA Link]: https://github.com/simPod/GraphQL-Utils/actions?query=workflow%3A%22CI%22+branch%3A0.5.X
 
 [Shepherd Image]: https://shepherd.dev/github/simPod/GraphQL-Utils/coverage.svg
 
 [Shepherd Link]: https://shepherd.dev/github/simPod/GraphQL-Utils
 
-[Coverage Image]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/master/graph/badge.svg
+[Coverage Image]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/0.5.x/graph/badge.svg
 
-[CodeCov Link]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/master
+[CodeCov Link]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/0.5.x
 
 [Downloads Image]: https://poser.pugx.org/simpod/graphql-utils/d/total.svg
 
