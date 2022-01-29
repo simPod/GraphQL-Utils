@@ -9,13 +9,24 @@ use GraphQL\Type\Definition\Type;
 
 class FieldBuilder
 {
-    /** @var array<string, mixed|array<string|mixed>> */
-    private array $parameters = [];
+    private string $name;
+
+    private Type $type;
+
+    private string|null $description = null;
+
+    private string|null $deprecationReason = null;
+
+    /** @psalm-var callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed|null */
+    private $resolve;
+
+    /** @psalm-var array<string, array<string, mixed>>|null */
+    private array|null $args = null;
 
     final private function __construct(string $name, Type $type)
     {
-        $this->parameters['name'] = $name;
-        $this->parameters['type'] = $type;
+        $this->name = $name;
+        $this->type = $type;
     }
 
     /**
@@ -31,7 +42,7 @@ class FieldBuilder
      */
     public function setDescription(string $description): self
     {
-        $this->parameters['description'] = $description;
+        $this->description = $description;
 
         return $this;
     }
@@ -41,15 +52,21 @@ class FieldBuilder
      */
     public function addArgument(string $name, Type $type, ?string $description = null, mixed $defaultValue = null): self
     {
-        $this->parameters['args'][$name] = ['type' => $type];
+        if ($this->args === null) {
+            $this->args = [];
+        }
+
+        $value = ['type' => $type];
 
         if ($description !== null) {
-            $this->parameters['args'][$name]['description'] = $description;
+            $value['description'] = $description;
         }
 
         if ($defaultValue !== null) {
-            $this->parameters['args'][$name]['defaultValue'] = $defaultValue;
+            $value['defaultValue'] = $defaultValue;
         }
+
+        $this->args[$name] = $value;
 
         return $this;
     }
@@ -63,7 +80,7 @@ class FieldBuilder
      */
     public function setResolver(callable $resolver): self
     {
-        $this->parameters['resolve'] = $resolver;
+        $this->resolve = $resolver;
 
         return $this;
     }
@@ -73,7 +90,7 @@ class FieldBuilder
      */
     public function setDeprecationReason(string $reason): self
     {
-        $this->parameters['deprecationReason'] = $reason;
+        $this->deprecationReason = $reason;
 
         return $this;
     }
@@ -83,6 +100,13 @@ class FieldBuilder
      */
     public function build(): array
     {
-        return $this->parameters;
+        return [
+            'args' => $this->args,
+            'name' => $this->name,
+            'description' => $this->description,
+            'deprecationReason' => $this->deprecationReason,
+            'resolve' => $this->resolve,
+            'type' => $this->type,
+        ];
     }
 }
