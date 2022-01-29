@@ -49,8 +49,7 @@ class DateTimeType extends CustomScalarType
         );
     }
 
-    /** @param mixed $value */
-    public function serialize($value): string
+    public function serialize(mixed $value): string
     {
         if (! $value instanceof DateTimeInterface) {
             throw new InvariantViolation(
@@ -61,8 +60,7 @@ class DateTimeType extends CustomScalarType
         return $value->format(DateTimeInterface::ATOM);
     }
 
-    /** @param mixed $value */
-    public function parseValue($value): DateTimeImmutable
+    public function parseValue(mixed $value): DateTimeImmutable
     {
         if (! is_string($value)) {
             throw new InvalidArgumentException();
