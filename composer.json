@@ -18,7 +18,7 @@
         }
     },
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^8.0",
         "thecodingmachine/safe": "^1.0.2",
         "webonyx/graphql-php": "^14.0"
     },

@@ -42,7 +42,7 @@ class ObjectBuilder extends TypeBuilder
      *
      * @return static
      */
-    public function setFields($fields): self
+    public function setFields(callable|array $fields): self
     {
         $this->fields = $fields;
 
