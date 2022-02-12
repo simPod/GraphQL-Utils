@@ -38,7 +38,7 @@ class FieldBuilder
     }
 
     /**
-     * @return static
+     * @return $this
      */
     public function setDescription(string $description): self
     {
@@ -48,7 +48,7 @@ class FieldBuilder
     }
 
     /**
-     * @return static
+     * @return $this
      */
     public function addArgument(string $name, Type $type, ?string $description = null, mixed $defaultValue = null): self
     {
@@ -76,7 +76,7 @@ class FieldBuilder
      *
      * @param callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed $resolver
      *
-     * @return static
+     * @return $this
      */
     public function setResolver(callable $resolver): self
     {
@@ -86,7 +86,7 @@ class FieldBuilder
     }
 
     /**
-     * @return static
+     * @return $this
      */
     public function setDeprecationReason(string $reason): self
     {

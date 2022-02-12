@@ -22,7 +22,7 @@ class EnumBuilder extends TypeBuilder
     }
 
     /**
-     * @return static
+     * @return $this
      */
     public function addValue(string $value, ?string $name = null, ?string $description = null): self
     {

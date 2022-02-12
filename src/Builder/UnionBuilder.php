@@ -28,7 +28,7 @@ class UnionBuilder extends TypeBuilder
      *
      * @param callable(mixed):ObjectType $resolveType
      *
-     * @return static
+     * @return $this
      */
     public function setResolveType(callable $resolveType): self
     {
@@ -40,7 +40,7 @@ class UnionBuilder extends TypeBuilder
     /**
      * @param ObjectType[] $types
      *
-     * @return static
+     * @return $this
      */
     public function setTypes(array $types): self
     {
