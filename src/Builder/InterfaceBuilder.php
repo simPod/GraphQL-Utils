@@ -10,7 +10,7 @@ class InterfaceBuilder extends ObjectBuilder
     private $resolveType;
 
     /**
-     * @return static
+     * @return $this
      */
     public function setResolveType(callable $resolveType): self
     {

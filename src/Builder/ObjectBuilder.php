@@ -28,7 +28,7 @@ class ObjectBuilder extends TypeBuilder
     }
 
     /**
-     * @return static
+     * @return $this
      */
     public function addInterface(InterfaceType $interfaceType): self
     {
@@ -40,7 +40,7 @@ class ObjectBuilder extends TypeBuilder
     /**
      * @param callable():array<FieldDefinition|array<string, mixed>>|array<FieldDefinition|array<string, mixed>> $fields
      *
-     * @return static
+     * @return $this
      */
     public function setFields(callable|array $fields): self
     {
@@ -52,7 +52,7 @@ class ObjectBuilder extends TypeBuilder
     /**
      * @param callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed $fieldResolver
      *
-     * @return static
+     * @return $this
      */
     public function setFieldResolver(callable $fieldResolver): self
     {

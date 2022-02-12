@@ -26,7 +26,7 @@ abstract class TypeBuilder
     }
 
     /**
-     * @return static
+     * @return $this
      */
     public function setDescription(string $description): self
     {
