@@ -32,7 +32,16 @@ composer require simpod/graphql-utils
 
 ### Schema Builders
 
-Instead of defining your schema as an array, use can use more objective-oriented approach. This library provides set of strictly typed builders that help you build your schema.
+Instead of defining your schema as an array, use can use more objective-oriented approach. This library provides set of strictly typed builders that help you build your schema:
+
+- EnumBuilder
+- FieldBuilder
+- InputFieldBuilder
+- InputObjectBuilder
+- InterfaceBuilder
+- ObjectBuilder
+- TypeBuilder
+- UnionBuilder
 
 #### ObjectBuilder and FieldBuilder
 
