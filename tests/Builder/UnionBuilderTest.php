@@ -36,7 +36,9 @@ final class UnionBuilderTest extends TestCase
             )
             ->build();
 
+        self::assertArrayHasKey('name', $union);
         self::assertSame($name, $union['name']);
+        self::assertArrayHasKey('description', $union);
         self::assertSame($description, $union['description']);
 
         self::assertArrayHasKey('types', $union);
@@ -45,7 +47,7 @@ final class UnionBuilderTest extends TestCase
 
         self::assertArrayHasKey('resolveType', $union);
         self::assertIsCallable($union['resolveType']);
-        self::assertSame($typeA, $union['resolveType'](true));
-        self::assertSame($typeB, $union['resolveType'](false));
+        self::assertSame($typeA, $union['resolveType'](true, null));
+        self::assertSame($typeB, $union['resolveType'](false, null));
     }
 }

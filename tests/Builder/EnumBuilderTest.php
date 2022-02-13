@@ -20,6 +20,7 @@ final class EnumBuilderTest extends TestCase
             ->addValue('Value2', null, 'Value 2 Description')
             ->build();
 
+        self::assertArrayHasKey('name', $object);
         self::assertSame($name, $object['name']);
 
         $values = $object['values'];
