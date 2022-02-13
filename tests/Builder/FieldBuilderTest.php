@@ -15,16 +15,14 @@ final class FieldBuilderTest extends TestCase
         $field = FieldBuilder::create('SomeField', Type::string())
             ->setDeprecationReason('Deprecated')
             ->setDescription('SomeDescription')
-            ->setResolver(
-                static function (): string {
-                    return 'Resolver result';
-                }
-            )
+            ->setResolver(static fn (): string => 'Resolver result')
             ->addArgument('arg1', Type::int(), 'Argument Description', 1)
             ->build();
 
         self::assertSame('SomeField', $field['name']);
+        self::assertArrayHasKey('deprecationReason', $field);
         self::assertSame('Deprecated', $field['deprecationReason']);
+        self::assertArrayHasKey('description', $field);
         self::assertSame('SomeDescription', $field['description']);
 
         self::assertArrayHasKey('resolve', $field);

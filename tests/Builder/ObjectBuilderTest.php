@@ -9,6 +9,7 @@ use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\Type;
 use PHPUnit\Framework\TestCase;
 use SimPod\GraphQLUtils\Builder\FieldBuilder;
+use SimPod\GraphQLUtils\Builder\InterfaceBuilder;
 use SimPod\GraphQLUtils\Builder\ObjectBuilder;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
@@ -21,7 +22,7 @@ final class ObjectBuilderTest extends TestCase
         $interface   = new class () extends InterfaceType {
             public function __construct()
             {
-                $builder = ObjectBuilder::create('InterfaceA');
+                $builder = InterfaceBuilder::create('InterfaceA');
                 parent::__construct($builder->build());
             }
         };
@@ -42,11 +43,14 @@ final class ObjectBuilderTest extends TestCase
             ->setFieldResolver($fieldResolver)
             ->build();
 
+        self::assertArrayHasKey('name', $object);
         self::assertSame($name, $object['name']);
+        self::assertArrayHasKey('description', $object);
         self::assertSame($description, $object['description']);
+        self::assertArrayHasKey('resolveField', $object);
+        self::assertSame($fieldResolver, $object['resolveField']);
         self::assertArrayHasKey('fields', $object);
         self::assertIsArray($object['fields']);
-        self::assertSame($fieldResolver, $object['resolveField']);
         self::assertCount(2, $object['fields']);
     }
 
