@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Tests\Builder;
 
+use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 use SimPod\GraphQLUtils\Builder\FieldBuilder;
 
 final class FieldBuilderTest extends TestCase
@@ -27,12 +29,18 @@ final class FieldBuilderTest extends TestCase
 
         self::assertArrayHasKey('resolve', $field);
         self::assertIsCallable($field['resolve']);
-        self::assertSame('Resolver result', $field['resolve']());
 
+        $resolveInfoReflection = new ReflectionClass(ResolveInfo::class);
+        $resolveInfo           = $resolveInfoReflection->newInstanceWithoutConstructor();
+
+        self::assertSame('Resolver result', $field['resolve'](null, [], null, $resolveInfo));
+
+        self::assertArrayHasKey('args', $field);
         self::assertIsArray($field['args']);
         self::assertCount(1, $field['args']);
         $args = $field['args'];
         self::assertArrayHasKey('arg1', $args);
+        self::assertIsArray($args['arg1']);
         self::assertSame(Type::int(), $args['arg1']['type']);
         self::assertSame('Argument Description', $args['arg1']['description']);
         self::assertSame(1, $args['arg1']['defaultValue']);

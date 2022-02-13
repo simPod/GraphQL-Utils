@@ -4,28 +4,49 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
+use GraphQL\Executor\Executor;
+use GraphQL\Type\Definition\Argument;
+use GraphQL\Type\Definition\InputObjectField;
 use ReflectionProperty;
 
+/**
+ * @see               Executor
+ * @see               InputObjectField
+ * @see               Argument
+ *
+ * @psalm-import-type FieldResolver from Executor
+ * @psalm-import-type InputObjectFieldConfig from InputObjectField
+ * @psalm-import-type ArgumentListConfig from Argument
+ * @psalm-import-type ArgumentType from Argument
+ */
 class InputFieldBuilder
 {
     private string $name;
 
+    /** @psalm-var ArgumentType */
     private mixed $type;
+
+    private string|null $deprecationReason = null;
 
     private string|null $description = null;
 
     private mixed $defaultValue;
 
-    final private function __construct(string $name, mixed $type)
+    /**
+     * @psalm-param ArgumentType $type
+     */
+    final private function __construct(string $name, $type)
     {
         $this->name = $name;
         $this->type = $type;
     }
 
     /**
+     * @psalm-param ArgumentType $type
+     *
      * @return static
      */
-    public static function create(string $name, mixed $type): self
+    public static function create(string $name, $type): self
     {
         return new static($name, $type);
     }
@@ -51,12 +72,13 @@ class InputFieldBuilder
     }
 
     /**
-     * @psalm-return array<string, mixed>
+     * @psalm-return InputObjectFieldConfig
      */
     public function build(): array
     {
         $config = [
             'name' => $this->name,
+            'deprecationReason' => $this->deprecationReason,
             'description' => $this->description,
             'type' => $this->type,
         ];

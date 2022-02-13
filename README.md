@@ -257,11 +257,13 @@ $searchResultType = new UnionType([
 use SimPod\GraphQLUtils\Builder\UnionBuilder;
 
 $character = new UnionType(
-    UnionBuilder::create('SearchResult')
-        ->setTypes([
+    UnionBuilder::create(
+        'SearchResult',
+        [
             MyTypes::story(),
             MyTypes::user()
-        ])
+        ]
+    )
         ->setResolveType(
             static function($value) {
                 if ($value->type === 'story') {

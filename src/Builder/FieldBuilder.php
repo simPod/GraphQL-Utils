@@ -4,35 +4,53 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
-use GraphQL\Type\Definition\ResolveInfo;
-use GraphQL\Type\Definition\Type;
+use GraphQL\Executor\Executor;
+use GraphQL\Type\Definition\Argument;
+use GraphQL\Type\Definition\FieldDefinition;
 
+/**
+ * @see Executor
+ * @see FieldDefinition
+ * @see Argument
+ *
+ * @psalm-import-type FieldResolver from Executor
+ * @psalm-import-type FieldDefinitionConfig from FieldDefinition
+ * @psalm-import-type FieldType from FieldDefinition
+ * @psalm-import-type ArgumentListConfig from Argument
+ * @psalm-import-type ArgumentType from Argument
+ */
 class FieldBuilder
 {
     private string $name;
 
-    private Type $type;
+    /** @psalm-var FieldType */
+    private mixed $type;
 
     private string|null $description = null;
 
     private string|null $deprecationReason = null;
 
-    /** @psalm-var callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed|null */
+    /** @psalm-var FieldResolver|null */
     private $resolve;
 
-    /** @psalm-var array<string, array<string, mixed>>|null */
+    /** @psalm-var (ArgumentListConfig&array)|null */
     private array|null $args = null;
 
-    final private function __construct(string $name, Type $type)
+    /**
+     * @psalm-param FieldType $type
+     */
+    final private function __construct(string $name, $type)
     {
         $this->name = $name;
         $this->type = $type;
     }
 
     /**
+     * @psalm-param FieldType $type
+     *
      * @return static
      */
-    public static function create(string $name, Type $type): self
+    public static function create(string $name, $type): self
     {
         return new static($name, $type);
     }
@@ -48,9 +66,11 @@ class FieldBuilder
     }
 
     /**
+     * @psalm-param ArgumentType $type
+     *
      * @return $this
      */
-    public function addArgument(string $name, Type $type, ?string $description = null, mixed $defaultValue = null): self
+    public function addArgument(string $name, $type, ?string $description = null, mixed $defaultValue = null): self
     {
         if ($this->args === null) {
             $this->args = [];
@@ -63,6 +83,7 @@ class FieldBuilder
         }
 
         if ($defaultValue !== null) {
+            /** @psalm-suppress MixedAssignment */
             $value['defaultValue'] = $defaultValue;
         }
 
@@ -72,9 +93,7 @@ class FieldBuilder
     }
 
     /**
-     * @see ResolveInfo
-     *
-     * @param callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed $resolver
+     * @psalm-param FieldResolver $resolver
      *
      * @return $this
      */
@@ -96,7 +115,7 @@ class FieldBuilder
     }
 
     /**
-     * @return array<string, mixed>
+     * @psalm-return FieldDefinitionConfig
      */
     public function build(): array
     {

@@ -11,7 +11,6 @@ use PHPUnit\Framework\TestCase;
 use SimPod\GraphQLUtils\Builder\FieldBuilder;
 use SimPod\GraphQLUtils\Builder\InterfaceBuilder;
 use SimPod\GraphQLUtils\Builder\ObjectBuilder;
-use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 final class ObjectBuilderTest extends TestCase
 {
@@ -37,7 +36,7 @@ final class ObjectBuilderTest extends TestCase
             ->setFields(
                 [
                     FieldBuilder::create('SomeField', Type::string())->build(),
-                    FieldDefinition::create(FieldBuilder::create('Another', Type::string())->build()),
+                    new FieldDefinition(FieldBuilder::create('Another', Type::string())->build()),
                 ]
             )
             ->setFieldResolver($fieldResolver)
@@ -49,7 +48,6 @@ final class ObjectBuilderTest extends TestCase
         self::assertSame($description, $object['description']);
         self::assertArrayHasKey('resolveField', $object);
         self::assertSame($fieldResolver, $object['resolveField']);
-        self::assertArrayHasKey('fields', $object);
         self::assertIsArray($object['fields']);
         self::assertCount(2, $object['fields']);
     }
@@ -82,13 +80,5 @@ final class ObjectBuilderTest extends TestCase
         /** @var array<FieldDefinition|array<string, mixed>> $fields */
         $fields = $object['fields']();
         self::assertCount(2, $fields);
-    }
-
-    public function testInvalidName(): void
-    {
-        $this->expectException(InvalidArgument::class);
-        $this->expectExceptionMessage('does not match pattern');
-
-        ObjectBuilder::create('invalid-type-name');
     }
 }

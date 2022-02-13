@@ -50,7 +50,6 @@ final class InterfaceBuilderTest extends TestCase
         self::assertSame($name, $interface['name']);
         self::assertArrayHasKey('description', $interface);
         self::assertSame($description, $interface['description']);
-        self::assertArrayHasKey('fields', $interface);
         self::assertIsArray($interface['fields']);
         self::assertCount(1, $interface['fields']);
         self::assertArrayHasKey('resolveType', $interface);

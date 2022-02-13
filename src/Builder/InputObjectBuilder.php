@@ -4,10 +4,25 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
+use GraphQL\Type\Definition\InputObjectType;
+
+/**
+ * @see               InputObjectType
+ *
+ * @psalm-import-type FieldConfig from InputObjectType
+ * @psalm-import-type InputObjectConfig from InputObjectType
+ */
 class InputObjectBuilder extends TypeBuilder
 {
-    /** @var list<array<string, mixed>>|callable():list<array<string, mixed>> */
+    private string|null $name;
+
+    /** @var callable():array<FieldConfig>|array<FieldConfig> */
     private $fields = [];
+
+    final private function __construct(?string $name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * @return static
@@ -18,7 +33,7 @@ class InputObjectBuilder extends TypeBuilder
     }
 
     /**
-     * @param list<array<string, mixed>>|callable():list<array<string, mixed>> $fields
+     * @param callable():array<FieldConfig>|array<FieldConfig> $fields
      *
      * @return $this
      */
@@ -30,7 +45,7 @@ class InputObjectBuilder extends TypeBuilder
     }
 
     /**
-     * @psalm-return array<string, mixed>
+     * @psalm-return InputObjectConfig
      */
     public function build(): array
     {

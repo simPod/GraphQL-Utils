@@ -17,10 +17,7 @@ final class FormattedErrorTest extends TestCase
         $exception = new Exception('When smashing sun-dried shrimps, be sure they are room temperature.');
 
         self::assertSame(
-            [
-                'message'    => 'Internal server error',
-                'extensions' => ['category' => 'internal'],
-            ],
+            ['message' => 'Internal server error'],
             FormattedError::createFromException($exception)
         );
     }
@@ -31,9 +28,8 @@ final class FormattedErrorTest extends TestCase
 
         self::assertSame(
             [
-                'debugMessage' => 'When smashing sun-dried shrimps, be sure they are room temperature.',
-                'message'      => 'Internal server error',
-                'extensions'   => ['category' => 'internal'],
+                'message' => 'Internal server error',
+                'extensions' => ['debugMessage' => 'When smashing sun-dried shrimps, be sure they are room temperature.'],
             ],
             FormattedError::createFromException($exception, DebugFlag::INCLUDE_DEBUG_MESSAGE)
         );
@@ -44,10 +40,7 @@ final class FormattedErrorTest extends TestCase
         $exception = new Exception('When smashing sun-dried shrimps, be sure they are room temperature.');
 
         self::assertSame(
-            [
-                'message'    => 'Try grilling smoothie jumbled with salad cream, decorateed with green curry.',
-                'extensions' => ['category' => 'internal'],
-            ],
+            ['message' => 'Try grilling smoothie jumbled with salad cream, decorateed with green curry.'],
             FormattedError::createFromException(
                 $exception,
                 DebugFlag::NONE,
@@ -74,11 +67,8 @@ final class FormattedErrorTest extends TestCase
 
         self::assertSame(
             [
-                'message'    => 'Error Message',
-                'extensions' => [
-                    'category' => 'graphql',
-                    'type'     => 'CUSTOM_ERROR',
-                ],
+                'message' => 'Error Message',
+                'extensions' => ['type' => 'CUSTOM_ERROR'],
             ],
             FormattedError::createFromException($error, DebugFlag::NONE)
         );
