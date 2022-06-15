@@ -10,7 +10,7 @@ use GraphQL\Utils\Utils;
 use SimPod\GraphQLUtils\Builder\TypeBuilder;
 use Throwable;
 
-use function Safe\sprintf;
+use function sprintf;
 
 final class InvalidArgument extends Exception implements ClientAware
 {

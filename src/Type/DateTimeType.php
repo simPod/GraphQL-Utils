@@ -18,8 +18,8 @@ use function assert;
 use function explode;
 use function is_string;
 use function Safe\preg_match;
-use function Safe\substr;
 use function strpos;
+use function substr;
 
 class DateTimeType extends CustomScalarType
 {
