@@ -8,6 +8,8 @@ use GraphQL\Type\Definition\FieldDefinition;
 use GraphQL\Type\Definition\InterfaceType;
 use GraphQL\Type\Definition\ResolveInfo;
 
+use function is_callable;
+
 class ObjectBuilder extends TypeBuilder
 {
     /** @var InterfaceType[] */
@@ -45,6 +47,30 @@ class ObjectBuilder extends TypeBuilder
     public function setFields(callable|array $fields): self
     {
         $this->fields = $fields;
+
+        return $this;
+    }
+
+    /**
+     * @param FieldDefinition|array<string, mixed> $field
+     *
+     * @return $this
+     */
+    public function addField(FieldDefinition|array $field): self
+    {
+        if (is_callable($this->fields)) {
+            $originalFields = $this->fields;
+            /** @var callable():array<FieldDefinition|array<string, mixed>> $closure */
+            $closure      = static function () use ($field, $originalFields): array {
+                $originalFields   = $originalFields();
+                $originalFields[] = $field;
+
+                return $originalFields;
+            };
+            $this->fields = $closure;
+        } else {
+            $this->fields[] =  $field;
+        }
 
         return $this;
     }
