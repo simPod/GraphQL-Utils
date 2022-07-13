@@ -54,6 +54,36 @@ final class ObjectBuilderTest extends TestCase
         self::assertCount(2, $object['fields']);
     }
 
+    public function testAddFields(): void
+    {
+        $builder = ObjectBuilder::create('Name');
+        $object  = $builder
+            ->setFields([
+                FieldBuilder::create('SomeField', Type::string())->build(),
+            ])
+            ->addField(FieldBuilder::create('Foo', Type::string())->build())
+            ->build();
+
+        self::assertIsArray($object['fields']);
+        self::assertCount(2, $object['fields']);
+    }
+
+    public function testAddFieldsToCallable(): void
+    {
+        $builder = ObjectBuilder::create('Name');
+        $object  = $builder
+            ->setFields(static fn () => [
+                FieldBuilder::create('SomeField', Type::string())->build(),
+            ])
+            ->addField(FieldBuilder::create('Foo', Type::string())->build())
+            ->build();
+
+        self::assertIsCallable($object['fields']);
+        /** @var array<FieldDefinition|array<string, mixed>> $fields */
+        $fields = $object['fields']();
+        self::assertCount(2, $fields);
+    }
+
     public function testInvalidName(): void
     {
         $this->expectException(InvalidArgument::class);
