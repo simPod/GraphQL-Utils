@@ -24,9 +24,9 @@ class EnumBuilder extends TypeBuilder
     /**
      * @return $this
      */
-    public function addValue(string $value, ?string $name = null, ?string $description = null): self
+    public function addValue(int|string $value, ?string $name = null, ?string $description = null): self
     {
-        $name ??= $value;
+        $name ??= (string) $value;
         if (preg_match(self::VALID_NAME_PATTERN, $name) !== 1) {
             throw InvalidArgument::invalidNameFormat($name);
         }
