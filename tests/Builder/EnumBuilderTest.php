@@ -19,6 +19,7 @@ final class EnumBuilderTest extends TestCase
             ->addValue('Value1', 'EnumName')
             ->addValue('Value2', null, 'Value 2 Description')
             ->addValue(0, 'Numeric', 'Value 2 Description')
+            ->addValue('Deprec', deprecationReason: 'Deprecated')
             ->build();
 
         self::assertArrayHasKey('name', $object);
@@ -27,7 +28,7 @@ final class EnumBuilderTest extends TestCase
         $values = $object['values'];
 
         self::assertIsArray($values);
-        self::assertCount(3, $values);
+        self::assertCount(4, $values);
 
         self::assertArrayHasKey('EnumName', $values);
         self::assertSame('Value1', $values['EnumName']['value']);
@@ -38,6 +39,9 @@ final class EnumBuilderTest extends TestCase
 
         self::assertArrayHasKey('Numeric', $values);
         self::assertSame(0, $values['Numeric']['value']);
+
+        self::assertArrayHasKey('Deprec', $values);
+        self::assertSame('Deprecated', $values['Deprec']['deprecationReason']);
     }
 
     public function testInvalidValue(): void

@@ -24,8 +24,12 @@ class EnumBuilder extends TypeBuilder
     /**
      * @return $this
      */
-    public function addValue(int|string $value, ?string $name = null, ?string $description = null): self
-    {
+    public function addValue(
+        int|string $value,
+        ?string $name = null,
+        ?string $description = null,
+        string|null $deprecationReason = null
+    ): self {
         $name ??= (string) $value;
         if (preg_match(self::VALID_NAME_PATTERN, $name) !== 1) {
             throw InvalidArgument::invalidNameFormat($name);
@@ -34,6 +38,10 @@ class EnumBuilder extends TypeBuilder
         $enumDefinition = ['value' => $value];
         if ($description !== null) {
             $enumDefinition['description'] = $description;
+        }
+
+        if ($deprecationReason !== null) {
+            $enumDefinition['deprecationReason'] = $deprecationReason;
         }
 
         $this->values[$name] = $enumDefinition;
