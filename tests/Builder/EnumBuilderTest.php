@@ -18,6 +18,7 @@ final class EnumBuilderTest extends TestCase
         $object  = $builder
             ->addValue('Value1', 'EnumName')
             ->addValue('Value2', null, 'Value 2 Description')
+            ->addValue(0, 'Numeric', 'Value 2 Description')
             ->build();
 
         self::assertArrayHasKey('name', $object);
@@ -26,13 +27,17 @@ final class EnumBuilderTest extends TestCase
         $values = $object['values'];
 
         self::assertIsArray($values);
-        self::assertCount(2, $values);
+        self::assertCount(3, $values);
 
         self::assertArrayHasKey('EnumName', $values);
         self::assertSame('Value1', $values['EnumName']['value']);
 
         self::assertArrayHasKey('Value2', $values);
+        self::assertSame('Value2', $values['Value2']['value']);
         self::assertSame('Value 2 Description', $values['Value2']['description']);
+
+        self::assertArrayHasKey('Numeric', $values);
+        self::assertSame(0, $values['Numeric']['value']);
     }
 
     public function testInvalidValue(): void
