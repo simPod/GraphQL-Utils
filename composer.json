@@ -23,7 +23,7 @@
         "webonyx/graphql-php": "^14.11.1"
     },
     "require-dev": {
-        "doctrine/coding-standard": "^9.0",
+        "doctrine/coding-standard": "^10.0",
         "infection/infection": "^0.26.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^1.3",
