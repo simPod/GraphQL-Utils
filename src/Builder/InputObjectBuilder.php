@@ -14,19 +14,14 @@ use GraphQL\Type\Definition\InputObjectType;
  */
 class InputObjectBuilder extends TypeBuilder
 {
-    private string|null $name;
-
     /** @var callable():array<FieldConfig>|array<FieldConfig> */
     private $fields = [];
 
-    final private function __construct(?string $name)
+    final private function __construct(private string|null $name)
     {
-        $this->name = $name;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function create(string $name): self
     {
         return new static($name);
@@ -44,9 +39,7 @@ class InputObjectBuilder extends TypeBuilder
         return $this;
     }
 
-    /**
-     * @psalm-return InputObjectConfig
-     */
+    /** @psalm-return InputObjectConfig */
     public function build(): array
     {
         return [

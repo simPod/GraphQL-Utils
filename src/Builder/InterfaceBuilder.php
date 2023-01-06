@@ -14,8 +14,6 @@ use GraphQL\Type\Definition\InterfaceType;
  */
 class InterfaceBuilder extends TypeBuilder
 {
-    private string|null $name;
-
     /** @var InterfaceType[] */
     private array $interfaces = [];
 
@@ -25,22 +23,17 @@ class InterfaceBuilder extends TypeBuilder
     /** @var array<FieldDefinition|array<string, mixed>>|callable():array<FieldDefinition|array<string, mixed>> */
     private $fields = [];
 
-    final private function __construct(?string $name)
+    final private function __construct(private string|null $name)
     {
-        $this->name = $name;
     }
 
-    /**
-     * @return static
-     */
-    public static function create(?string $name = null): self
+    /** @return static */
+    public static function create(string|null $name = null): self
     {
         return new static($name);
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function addInterface(InterfaceType $interfaceType): self
     {
         $this->interfaces[] = $interfaceType;
@@ -60,9 +53,7 @@ class InterfaceBuilder extends TypeBuilder
         return $this;
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function setResolveType(callable $resolveType): self
     {
         $this->resolveType = $resolveType;
@@ -70,9 +61,7 @@ class InterfaceBuilder extends TypeBuilder
         return $this;
     }
 
-    /**
-     * @psalm-return InterfaceConfig
-     */
+    /** @psalm-return InterfaceConfig */
     public function build(): array
     {
         return [

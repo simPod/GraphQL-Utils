@@ -37,7 +37,7 @@ class DateTimeType extends CustomScalarType
             [
                 'name'        => self::NAME,
                 'description' => self::DESCRIPTION,
-            ]
+            ],
         );
     }
 
@@ -45,7 +45,7 @@ class DateTimeType extends CustomScalarType
     {
         if (! $value instanceof DateTimeInterface) {
             throw new InvariantViolation(
-                'DateTime is not an instance of DateTimeImmutable nor DateTime: ' . Utils::printSafe($value)
+                'DateTime is not an instance of DateTimeImmutable nor DateTime: ' . Utils::printSafe($value),
             );
         }
 
@@ -66,7 +66,7 @@ class DateTimeType extends CustomScalarType
     }
 
     /** @param mixed[]|null $variables */
-    public function parseLiteral(Node $valueNode, ?array $variables = null): ?DateTimeImmutable
+    public function parseLiteral(Node $valueNode, array|null $variables = null): DateTimeImmutable|null
     {
         if (! $valueNode instanceof StringValueNode) {
             return null;

@@ -17,8 +17,6 @@ use function Safe\preg_match;
  */
 class EnumBuilder extends TypeBuilder
 {
-    private string|null $name;
-
     /**
      * TODO @var (EnumValues&array)|callable(): EnumValues&array
      *
@@ -26,27 +24,22 @@ class EnumBuilder extends TypeBuilder
      */
     private array $values = [];
 
-    final private function __construct(?string $name)
+    final private function __construct(private string|null $name)
     {
-        $this->name = $name;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function create(string $name): self
     {
         return new static($name);
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function addValue(
         int|string $value,
-        ?string $name = null,
-        ?string $description = null,
-        string|null $deprecationReason = null
+        string|null $name = null,
+        string|null $description = null,
+        string|null $deprecationReason = null,
     ): self {
         $name ??= (string) $value;
         if (preg_match(self::VALID_NAME_PATTERN, $name) !== 1) {
@@ -67,9 +60,7 @@ class EnumBuilder extends TypeBuilder
         return $this;
     }
 
-    /**
-     * @psalm-return EnumTypeConfig
-     */
+    /** @psalm-return EnumTypeConfig */
     public function build(): array
     {
         return [

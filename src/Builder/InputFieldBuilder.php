@@ -21,8 +21,6 @@ use ReflectionProperty;
  */
 class InputFieldBuilder
 {
-    private string $name;
-
     /** @psalm-var ArgumentType */
     private mixed $type;
 
@@ -32,12 +30,9 @@ class InputFieldBuilder
 
     private mixed $defaultValue;
 
-    /**
-     * @psalm-param ArgumentType $type
-     */
-    final private function __construct(string $name, $type)
+    /** @psalm-param ArgumentType $type */
+    final private function __construct(private string $name, $type)
     {
-        $this->name = $name;
         $this->type = $type;
     }
 
@@ -51,9 +46,7 @@ class InputFieldBuilder
         return new static($name, $type);
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function setDefaultValue(mixed $defaultValue): self
     {
         $this->defaultValue = $defaultValue;
@@ -61,9 +54,7 @@ class InputFieldBuilder
         return $this;
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -71,9 +62,7 @@ class InputFieldBuilder
         return $this;
     }
 
-    /**
-     * @psalm-return InputObjectFieldConfig
-     */
+    /** @psalm-return InputObjectFieldConfig */
     public function build(): array
     {
         $config = [

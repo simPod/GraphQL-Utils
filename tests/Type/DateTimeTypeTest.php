@@ -18,9 +18,7 @@ use SimPod\GraphQLUtils\Type\DateTimeType;
 
 final class DateTimeTypeTest extends TestCase
 {
-    /**
-     * @dataProvider dateProviderSerialize
-     */
+    /** @dataProvider dateProviderSerialize */
     public function testSerialize(string $expectedValue, DateTimeInterface $dateTime): void
     {
         $dateTimeType = new DateTimeType();
@@ -29,9 +27,7 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($expectedValue, $value);
     }
 
-    /**
-     * @return Generator<int, array{string, DateTimeInterface}>
-     */
+    /** @return Generator<int, array{string, DateTimeInterface}> */
     public function dateProviderSerialize(): Generator
     {
         yield ['2018-12-31T01:02:03+00:00', new DateTime('2018-12-31 01:02:03')];
@@ -47,22 +43,18 @@ final class DateTimeTypeTest extends TestCase
         $dateTimeType->serialize('non datetimetype');
     }
 
-    /**
-     * @dataProvider dataProviderParseValue
-     */
+    /** @dataProvider dataProviderParseValue */
     public function testParseValue(string $valueToParse, DateTimeImmutable $expected): void
     {
         $dateTimeType = new DateTimeType();
 
         self::assertSame(
             $expected->format(DateTimeInterface::ATOM),
-            $dateTimeType->parseValue($valueToParse)->setTimezone(new DateTimeZone('UTC'))->format(DateTimeInterface::ATOM)
+            $dateTimeType->parseValue($valueToParse)->setTimezone(new DateTimeZone('UTC'))->format(DateTimeInterface::ATOM),
         );
     }
 
-    /**
-     * @return Generator<string, array{string, DateTimeImmutable}>
-     */
+    /** @return Generator<string, array{string, DateTimeImmutable}> */
     public function dataProviderParseValue(): Generator
     {
         // Datetime with hours, minutes and seconds
@@ -90,9 +82,7 @@ final class DateTimeTypeTest extends TestCase
         yield 'fractions with timezone' => ['2017-01-07T11:25:00.450+01:00', new DateTimeImmutable('2017-01-07 10:25:0.450')];
     }
 
-    /**
-     * @dataProvider dataProviderParseValueInvalidFormatOrValue
-     */
+    /** @dataProvider dataProviderParseValueInvalidFormatOrValue */
     public function testParseValueInvalidFormatOrValue(string $value): void
     {
         $this->expectException(InvalidArgument::class);
@@ -102,9 +92,7 @@ final class DateTimeTypeTest extends TestCase
         $dateTimeType->parseValue($value);
     }
 
-    /**
-     * @return Generator<int, array{string}>
-     */
+    /** @return Generator<int, array{string}> */
     public function dataProviderParseValueInvalidFormatOrValue(): Generator
     {
         yield ['2021-02-29T00:00:00Z'];
@@ -125,7 +113,7 @@ final class DateTimeTypeTest extends TestCase
         self::assertNotNull($actual);
         self::assertSame(
             (new DateTimeImmutable('2018-12-31 01:02:03'))->format(DateTimeInterface::ATOM),
-            $actual->format(DateTimeInterface::ATOM)
+            $actual->format(DateTimeInterface::ATOM),
         );
     }
 

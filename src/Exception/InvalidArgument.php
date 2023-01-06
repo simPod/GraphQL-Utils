@@ -14,7 +14,7 @@ use function sprintf;
 
 final class InvalidArgument extends Exception implements ClientAware
 {
-    private function __construct(string $message = '', int $code = 0, ?Throwable $previous = null)
+    private function __construct(string $message = '', int $code = 0, Throwable|null $previous = null)
     {
         parent::__construct($message, $code, $previous);
     }
@@ -28,7 +28,7 @@ final class InvalidArgument extends Exception implements ClientAware
     {
         return new self(sprintf(
             'DateTime type expects input value to be ISO 8601 compliant. Given invalid value "%s"',
-            Utils::printSafeJson($invalidValue)
+            Utils::printSafeJson($invalidValue),
         ));
     }
 

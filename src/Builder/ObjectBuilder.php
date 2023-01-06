@@ -20,8 +20,6 @@ use function is_callable;
  */
 class ObjectBuilder extends TypeBuilder
 {
-    private string|null $name;
-
     /** @var InterfaceType[] */
     private array $interfaces = [];
 
@@ -31,22 +29,17 @@ class ObjectBuilder extends TypeBuilder
     /** @var callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed|null */
     private $fieldResolver;
 
-    final private function __construct(?string $name)
+    final private function __construct(private string|null $name)
     {
-        $this->name = $name;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function create(string $name): self
     {
         return new static($name);
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function addInterface(InterfaceType $interfaceType): self
     {
         $this->interfaces[] = $interfaceType;
@@ -101,9 +94,7 @@ class ObjectBuilder extends TypeBuilder
         return $this;
     }
 
-    /**
-     * @psalm-return ObjectConfig
-     */
+    /** @psalm-return ObjectConfig */
     public function build(): array
     {
         return [

@@ -8,11 +8,9 @@ abstract class TypeBuilder
 {
     public const VALID_NAME_PATTERN = '~^[_a-zA-Z][_a-zA-Z0-9]*$~';
 
-    protected ?string $description = null;
+    protected string|null $description = null;
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function setDescription(string $description): self
     {
         $this->description = $description;

@@ -30,7 +30,7 @@ final class UnionBuilderTest extends TestCase
                     self::assertIsBool($value);
 
                     return $value ? $typeA : $typeB;
-                }
+                },
             )
             ->build();
 

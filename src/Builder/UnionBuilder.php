@@ -20,7 +20,6 @@ use GraphQL\Type\Definition\UnionType;
  */
 class UnionBuilder extends TypeBuilder
 {
-    private string|null $name;
     /** @psalm-var ResolveType|null */
     private $resolveType = null;
 
@@ -28,10 +27,9 @@ class UnionBuilder extends TypeBuilder
     private $types;
 
     /** @psalm-param Types $types */
-    final private function __construct(iterable|callable $types, ?string $name = null)
+    final private function __construct(iterable|callable $types, private string|null $name = null)
     {
         $this->types = $types;
-        $this->name  = $name;
     }
 
     /**
@@ -39,7 +37,7 @@ class UnionBuilder extends TypeBuilder
      *
      * @return static
      */
-    public static function create(?string $name, iterable|callable $types): self
+    public static function create(string|null $name, iterable|callable $types): self
     {
         return new static($types, $name);
     }
@@ -56,9 +54,7 @@ class UnionBuilder extends TypeBuilder
         return $this;
     }
 
-    /**
-     * @psalm-return UnionConfig
-     */
+    /** @psalm-return UnionConfig */
     public function build(): array
     {
         return [

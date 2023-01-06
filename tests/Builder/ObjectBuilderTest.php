@@ -22,6 +22,7 @@ final class ObjectBuilderTest extends TestCase
             public function __construct()
             {
                 $builder = InterfaceBuilder::create('InterfaceA');
+
                 parent::__construct($builder->build());
             }
         };
@@ -37,7 +38,7 @@ final class ObjectBuilderTest extends TestCase
                 [
                     FieldBuilder::create('SomeField', Type::string())->build(),
                     new FieldDefinition(FieldBuilder::create('Another', Type::string())->build()),
-                ]
+                ],
             )
             ->setFieldResolver($fieldResolver)
             ->build();

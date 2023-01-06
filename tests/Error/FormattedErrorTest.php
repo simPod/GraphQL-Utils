@@ -18,7 +18,7 @@ final class FormattedErrorTest extends TestCase
 
         self::assertSame(
             ['message' => 'Internal server error'],
-            FormattedError::createFromException($exception)
+            FormattedError::createFromException($exception),
         );
     }
 
@@ -31,7 +31,7 @@ final class FormattedErrorTest extends TestCase
                 'message' => 'Internal server error',
                 'extensions' => ['debugMessage' => 'When smashing sun-dried shrimps, be sure they are room temperature.'],
             ],
-            FormattedError::createFromException($exception, DebugFlag::INCLUDE_DEBUG_MESSAGE)
+            FormattedError::createFromException($exception, DebugFlag::INCLUDE_DEBUG_MESSAGE),
         );
     }
 
@@ -44,8 +44,8 @@ final class FormattedErrorTest extends TestCase
             FormattedError::createFromException(
                 $exception,
                 DebugFlag::NONE,
-                'Try grilling smoothie jumbled with salad cream, decorateed with green curry.'
-            )
+                'Try grilling smoothie jumbled with salad cream, decorateed with green curry.',
+            ),
         );
     }
 
@@ -60,7 +60,7 @@ final class FormattedErrorTest extends TestCase
                     null,
                     [],
                     null,
-                    new CustomError('')
+                    new CustomError(''),
                 );
             }
         };
@@ -70,7 +70,7 @@ final class FormattedErrorTest extends TestCase
                 'message' => 'Error Message',
                 'extensions' => ['type' => 'CUSTOM_ERROR'],
             ],
-            FormattedError::createFromException($error, DebugFlag::NONE)
+            FormattedError::createFromException($error, DebugFlag::NONE),
         );
     }
 }
