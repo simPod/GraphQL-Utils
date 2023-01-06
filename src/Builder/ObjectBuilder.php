@@ -6,20 +6,35 @@ namespace SimPod\GraphQLUtils\Builder;
 
 use GraphQL\Type\Definition\FieldDefinition;
 use GraphQL\Type\Definition\InterfaceType;
+use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 
 use function is_callable;
 
+/**
+ * @see               FieldDefinition
+ * @see               ObjectType
+ *
+ * @psalm-import-type FieldDefinitionConfig from FieldDefinition
+ * @psalm-import-type ObjectConfig from ObjectType
+ */
 class ObjectBuilder extends TypeBuilder
 {
+    private string|null $name;
+
     /** @var InterfaceType[] */
     private array $interfaces = [];
 
-    /** @var callable():array<FieldDefinition|array<string, mixed>>|array<FieldDefinition|array<string, mixed>> */
+    /** @var array<FieldDefinition|FieldDefinitionConfig>|callable():array<FieldDefinition|FieldDefinitionConfig> */
     private $fields = [];
 
     /** @var callable(mixed, array<mixed>, mixed, ResolveInfo) : mixed|null */
-    private $fieldResolver = null;
+    private $fieldResolver;
+
+    final private function __construct(?string $name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * @return static
@@ -40,7 +55,7 @@ class ObjectBuilder extends TypeBuilder
     }
 
     /**
-     * @param callable():array<FieldDefinition|array<string, mixed>>|array<FieldDefinition|array<string, mixed>> $fields
+     * @param array<FieldDefinition|FieldDefinitionConfig>|callable():array<FieldDefinition|FieldDefinitionConfig> $fields
      *
      * @return $this
      */
@@ -52,7 +67,7 @@ class ObjectBuilder extends TypeBuilder
     }
 
     /**
-     * @param FieldDefinition|array<string, mixed> $field
+     * @param FieldDefinition|FieldDefinitionConfig $field
      *
      * @return $this
      */
@@ -60,16 +75,15 @@ class ObjectBuilder extends TypeBuilder
     {
         if (is_callable($this->fields)) {
             $originalFields = $this->fields;
-            /** @var callable():array<FieldDefinition|array<string, mixed>> $closure */
-            $closure      = static function () use ($field, $originalFields): array {
+            $closure        = static function () use ($field, $originalFields): array {
                 $originalFields   = $originalFields();
                 $originalFields[] = $field;
 
                 return $originalFields;
             };
-            $this->fields = $closure;
+            $this->fields   = $closure;
         } else {
-            $this->fields[] =  $field;
+            $this->fields[] = $field;
         }
 
         return $this;
@@ -87,13 +101,17 @@ class ObjectBuilder extends TypeBuilder
         return $this;
     }
 
+    /**
+     * @psalm-return ObjectConfig
+     */
     public function build(): array
     {
-        $parameters                 = parent::build();
-        $parameters['interfaces']   = $this->interfaces;
-        $parameters['fields']       = $this->fields;
-        $parameters['resolveField'] = $this->fieldResolver;
-
-        return $parameters;
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'interfaces' => $this->interfaces,
+            'fields' => $this->fields,
+            'resolveField' => $this->fieldResolver,
+        ];
     }
 }

@@ -4,14 +4,32 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
+use GraphQL\Type\Definition\EnumType;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
 use function Safe\preg_match;
 
+/**
+ * @see               EnumType
+ *
+ * @psalm-import-type EnumValues from EnumType
+ * @psalm-import-type EnumTypeConfig from EnumType
+ */
 class EnumBuilder extends TypeBuilder
 {
-    /** @var mixed[][] */
+    private string|null $name;
+
+    /**
+     * TODO @var (EnumValues&array)|callable(): EnumValues&array
+     *
+     * @var EnumValues&array
+     */
     private array $values = [];
+
+    final private function __construct(?string $name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * @return static
@@ -49,11 +67,15 @@ class EnumBuilder extends TypeBuilder
         return $this;
     }
 
+    /**
+     * @psalm-return EnumTypeConfig
+     */
     public function build(): array
     {
-        $parameters           = parent::build();
-        $parameters['values'] = $this->values;
-
-        return $parameters;
+        return [
+            'name' => $this->name,
+            'description' => $this->description,
+            'values' => $this->values,
+        ];
     }
 }

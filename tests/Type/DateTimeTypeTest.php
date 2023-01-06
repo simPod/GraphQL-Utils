@@ -38,13 +38,10 @@ final class DateTimeTypeTest extends TestCase
         yield ['2018-12-31T01:02:03+00:00', new DateTimeImmutable('2018-12-31 01:02:03')];
     }
 
-    /**
-     * @dataProvider dateProviderSerialize
-     */
     public function testSerializeInvalidType(): void
     {
         $this->expectException(InvariantViolation::class);
-        $this->expectExceptionMessage('DateTime is not an instance of DateTimeImmutable nor DateTime: non datetimetype');
+        $this->expectExceptionMessage('DateTime is not an instance of DateTimeImmutable nor DateTime: "non datetimetype"');
 
         $dateTimeType = new DateTimeType();
         $dateTimeType->serialize('non datetimetype');

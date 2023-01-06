@@ -1,8 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.19.0@a2ad69ae4f5ab1f7d225a8dc4e2ec2d9415ed599">
+<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
+  <file src="src/Builder/EnumBuilder.php">
+    <InvalidDocblock occurrences="1">
+      <code>private array $values = [];</code>
+    </InvalidDocblock>
+  </file>
   <file src="src/Builder/FieldBuilder.php">
-    <MixedAssignment occurrences="1">
-      <code>$value['defaultValue']</code>
-    </MixedAssignment>
+    <InvalidDocblock occurrences="1">
+      <code>private array|null $args = null;</code>
+    </InvalidDocblock>
+    <InvalidReturnStatement occurrences="1"/>
+    <InvalidReturnType occurrences="1">
+      <code>FieldDefinitionConfig</code>
+    </InvalidReturnType>
+    <InvalidTypeImport occurrences="3">
+      <code>FieldDefinitionConfig from FieldDefinition</code>
+      <code>FieldResolver from Executor</code>
+      <code>FieldType from FieldDefinition</code>
+    </InvalidTypeImport>
+  </file>
+  <file src="src/Builder/InputFieldBuilder.php">
+    <InvalidTypeImport occurrences="1">
+      <code>FieldResolver from Executor</code>
+    </InvalidTypeImport>
+  </file>
+  <file src="src/Builder/InterfaceBuilder.php">
+    <LessSpecificReturnStatement occurrences="1"/>
+    <MoreSpecificReturnType occurrences="1">
+      <code>InterfaceConfig</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Builder/ObjectBuilder.php">
+    <InvalidReturnStatement occurrences="1"/>
+    <InvalidReturnType occurrences="1">
+      <code>ObjectConfig</code>
+    </InvalidReturnType>
+    <InvalidTypeImport occurrences="1">
+      <code>FieldDefinitionConfig from FieldDefinition</code>
+    </InvalidTypeImport>
+  </file>
+  <file src="src/Error/FormattedError.php">
+    <InvalidArrayAssignment occurrences="1">
+      <code>$arrayError['extensions']</code>
+    </InvalidArrayAssignment>
+    <InvalidReturnStatement occurrences="1">
+      <code>$arrayError</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType occurrences="1">
+      <code>array</code>
+    </InvalidReturnType>
+    <MixedArrayAssignment occurrences="1">
+      <code>$arrayError['extensions']['type']</code>
+    </MixedArrayAssignment>
   </file>
 </files>
