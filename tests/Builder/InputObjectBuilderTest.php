@@ -22,6 +22,7 @@ final class InputObjectBuilderTest extends TestCase
             public function __construct()
             {
                 $builder = InterfaceBuilder::create('InterfaceA');
+
                 parent::__construct($builder->build());
             }
         };
@@ -36,7 +37,7 @@ final class InputObjectBuilderTest extends TestCase
                 [
                     InputFieldBuilder::create('SomeField', Type::string())->build(),
                     new InputObjectField(InputFieldBuilder::create('Another', Type::string())->build()),
-                ]
+                ],
             )
             ->build();
 

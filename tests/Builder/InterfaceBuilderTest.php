@@ -25,6 +25,7 @@ final class InterfaceBuilderTest extends TestCase
             public function __construct()
             {
                 $builder = InterfaceBuilder::create('InterfaceA');
+
                 parent::__construct($builder->build());
             }
         };
@@ -35,7 +36,7 @@ final class InterfaceBuilderTest extends TestCase
             ->setFields(
                 [
                     FieldBuilder::create('SomeField', Type::string())->build(),
-                ]
+                ],
             )
             ->setResolveType(
                 static fn (bool $value): Type => $value ? Type::string() : Type::int()

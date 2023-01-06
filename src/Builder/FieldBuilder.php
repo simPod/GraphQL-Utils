@@ -21,8 +21,6 @@ use GraphQL\Type\Definition\FieldDefinition;
  */
 class FieldBuilder
 {
-    private string $name;
-
     /** @psalm-var FieldType */
     private mixed $type;
 
@@ -36,12 +34,9 @@ class FieldBuilder
     /** @psalm-var (ArgumentListConfig&array)|null */
     private array|null $args = null;
 
-    /**
-     * @psalm-param FieldType $type
-     */
-    final private function __construct(string $name, $type)
+    /** @psalm-param FieldType $type */
+    final private function __construct(private string $name, $type)
     {
-        $this->name = $name;
         $this->type = $type;
     }
 
@@ -55,9 +50,7 @@ class FieldBuilder
         return new static($name, $type);
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -70,7 +63,7 @@ class FieldBuilder
      *
      * @return $this
      */
-    public function addArgument(string $name, $type, ?string $description = null, mixed $defaultValue = null): self
+    public function addArgument(string $name, $type, string|null $description = null, mixed $defaultValue = null): self
     {
         if ($this->args === null) {
             $this->args = [];
@@ -104,9 +97,7 @@ class FieldBuilder
         return $this;
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function setDeprecationReason(string $reason): self
     {
         $this->deprecationReason = $reason;
@@ -114,9 +105,7 @@ class FieldBuilder
         return $this;
     }
 
-    /**
-     * @psalm-return FieldDefinitionConfig
-     */
+    /** @psalm-return FieldDefinitionConfig */
     public function build(): array
     {
         return [
