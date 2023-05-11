@@ -28,7 +28,7 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /** @return Generator<int, array{string, DateTimeInterface}> */
-    public function dateProviderSerialize(): Generator
+    public static function dateProviderSerialize(): Generator
     {
         yield ['2018-12-31T01:02:03+00:00', new DateTime('2018-12-31 01:02:03')];
         yield ['2018-12-31T01:02:03+00:00', new DateTimeImmutable('2018-12-31 01:02:03')];
@@ -55,7 +55,7 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /** @return Generator<string, array{string, DateTimeImmutable}> */
-    public function dataProviderParseValue(): Generator
+    public static function dataProviderParseValue(): Generator
     {
         // Datetime with hours, minutes and seconds
         yield 'timezone #1' => ['2016-11-01T00:00:00-11:00', new DateTimeImmutable('2016-11-01 11:00:00')];
@@ -93,7 +93,7 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /** @return Generator<int, array{string}> */
-    public function dataProviderParseValueInvalidFormatOrValue(): Generator
+    public static function dataProviderParseValueInvalidFormatOrValue(): Generator
     {
         yield ['2021-02-29T00:00:00Z'];
         yield ['1900-02-29T00:00:00Z'];
