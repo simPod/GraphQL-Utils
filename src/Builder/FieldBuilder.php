@@ -63,8 +63,13 @@ class FieldBuilder
      *
      * @return $this
      */
-    public function addArgument(string $name, $type, string|null $description = null, mixed $defaultValue = null): self
-    {
+    public function addArgument(
+        string $name,
+        $type,
+        string|null $description = null,
+        mixed $defaultValue = null,
+        string|null $deprecationReason = null,
+    ): self {
         if ($this->args === null) {
             $this->args = [];
         }
@@ -78,6 +83,11 @@ class FieldBuilder
         if ($defaultValue !== null) {
             /** @psalm-suppress MixedAssignment */
             $value['defaultValue'] = $defaultValue;
+        }
+
+        if ($deprecationReason !== null) {
+            /** @psalm-suppress MixedAssignment */
+            $value['deprecationReason'] = $deprecationReason;
         }
 
         $this->args[$name] = $value;
