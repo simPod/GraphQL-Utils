@@ -62,6 +62,14 @@ class InputFieldBuilder
         return $this;
     }
 
+    /** @return $this */
+    public function setDeprecationReason(string|null $deprecationReason): self
+    {
+        $this->deprecationReason = $deprecationReason;
+
+        return $this;
+    }
+
     /** @psalm-return InputObjectFieldConfig */
     public function build(): array
     {
@@ -73,7 +81,6 @@ class InputFieldBuilder
         ];
 
         $property = new ReflectionProperty($this, 'defaultValue');
-        $property->setAccessible(true);
         if ($property->isInitialized($this)) {
             /** @psalm-suppress MixedAssignment */
             $config['defaultValue'] = $this->defaultValue;

@@ -18,7 +18,7 @@ final class FieldBuilderTest extends TestCase
             ->setDeprecationReason('Deprecated')
             ->setDescription('SomeDescription')
             ->setResolver(static fn (): string => 'Resolver result')
-            ->addArgument('arg1', Type::int(), 'Argument Description', 1)
+            ->addArgument('arg1', Type::int(), 'Argument Description', 1, 'Reason')
             ->build();
 
         self::assertSame('SomeField', $field['name']);
@@ -43,6 +43,7 @@ final class FieldBuilderTest extends TestCase
         self::assertIsArray($args['arg1']);
         self::assertSame(Type::int(), $args['arg1']['type']);
         self::assertSame('Argument Description', $args['arg1']['description']);
+        self::assertSame('Reason', $args['arg1']['deprecationReason']);
         self::assertSame(1, $args['arg1']['defaultValue']);
     }
 }
