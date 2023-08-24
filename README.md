@@ -264,14 +264,6 @@ $character = new UnionType(
 );
 ```
 
-### Types
-
-#### 🕰️ DateTime
-
-scalar type that produces `scalar DateTime` in your schema.
-
-[`SimPod\GraphQLUtils\Type\DateTimeType`](https://github.com/simPod/GraphQL-Utils/blob/master/src/Type/DateTimeType.php)
-
 ### Error Handling
 
 Extending your exception with `SimPod\GraphQLUtils\Error\Error` forces you to implement `getType()` method.
