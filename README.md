@@ -7,19 +7,6 @@
 [![Packagist][Packagist Image]][Packagist Link]
 [![Infection MSI][Infection Image]][Infection Link]
 
-## Contents
-
-- [Installation](#installation)
-- [Features](#features)
-    - [Schema Builders](#schema-builders)
-        - [ObjectBuilder and FieldBuilder](#objectbuilder-and-fieldbuilder)
-        - [EnumBuilder](#enumbuilder)
-        - [InterfaceBuilder](#interfacebuilder)
-        - [UnionBuilder](#unionbuilder)
-    - [Types](#types)
-        - [DateTime](#%EF%B8%8F-datetime)
-    - [Error Handling](#error-handling)
-
 ## Installation
 
 Add as [Composer](https://getcomposer.org/) dependency:
