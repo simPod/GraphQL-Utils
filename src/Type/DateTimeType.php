@@ -21,6 +21,7 @@ use function Safe\preg_match;
 use function strpos;
 use function substr;
 
+/** @deprecated Use https://github.com/mll-lab/graphql-php-scalars */
 class DateTimeType extends CustomScalarType
 {
     private const NAME           = 'DateTime';
