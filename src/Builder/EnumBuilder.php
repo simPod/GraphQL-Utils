@@ -7,7 +7,7 @@ namespace SimPod\GraphQLUtils\Builder;
 use GraphQL\Type\Definition\EnumType;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
-use function Safe\preg_match;
+use function preg_match;
 
 /**
  * @see               EnumType
