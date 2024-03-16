@@ -39,7 +39,7 @@ final class InterfaceBuilderTest extends TestCase
                 ],
             )
             ->setResolveType(
-                static fn (bool $value): Type => $value ? Type::string() : Type::int()
+                static fn (bool $value): Type => $value ? Type::string() : Type::int(),
             )
             ->build();
 
