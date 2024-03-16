@@ -4,9 +4,5 @@ parameters:
         - %currentWorkingDirectory%/src
         - %currentWorkingDirectory%/tests
 
-    ignoreErrors:
-        # Adds unnecessary maintanence overhead
-        - "~Class DateTime(Immutable)? is unsafe to use. Its methods can return FALSE instead of throwing an exception. Please add 'use Safe\\\\DateTime(Immutable)?;' at the beginning of the file to use the variant provided by the 'thecodingmachine/safe' library~"
-
 includes:
     - phpstan-baseline.neon
