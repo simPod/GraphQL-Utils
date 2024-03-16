@@ -344,15 +344,15 @@ Error types will then be provided in your response so client can easier identify
 
 [GA Image]: https://github.com/simPod/GraphQL-Utils/workflows/CI/badge.svg
 
-[GA Link]: https://github.com/simPod/GraphQL-Utils/actions?query=workflow%3A%22CI%22+branch%3A0.6.X
+[GA Link]: https://github.com/simPod/GraphQL-Utils/actions?query=workflow%3A%22CI%22+branch%3A0.7.x
 
 [Shepherd Image]: https://shepherd.dev/github/simPod/GraphQL-Utils/coverage.svg
 
 [Shepherd Link]: https://shepherd.dev/github/simPod/GraphQL-Utils
 
-[Coverage Image]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/0.6.x/graph/badge.svg
+[Coverage Image]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/0.7.x/graph/badge.svg
 
-[CodeCov Link]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/0.6.x
+[CodeCov Link]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/0.7.x
 
 [Downloads Image]: https://poser.pugx.org/simpod/graphql-utils/d/total.svg
 
@@ -360,6 +360,6 @@ Error types will then be provided in your response so client can easier identify
 
 [Packagist Link]: https://packagist.org/packages/simpod/graphql-utils
 
-[Infection Image]: https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FsimPod%2FGraphQL-Utils%2F0.6.x
+[Infection Image]: https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FsimPod%2FGraphQL-Utils%2F0.7.x
 
-[Infection Link]: https://dashboard.stryker-mutator.io/reports/github.com/simPod/GraphQL-Utils/0.6.x
+[Infection Link]: https://dashboard.stryker-mutator.io/reports/github.com/simPod/GraphQL-Utils/0.7.x
