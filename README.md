@@ -1,7 +1,6 @@
 # PHP GraphQL Utils for graphql-php
 
 [![GitHub Actions][GA Image]][GA Link]
-[![Shepherd Type][Shepherd Image]][Shepherd Link]
 [![Code Coverage][Coverage Image]][CodeCov Link]
 [![Downloads][Downloads Image]][Packagist Link]
 [![Packagist][Packagist Image]][Packagist Link]
@@ -345,10 +344,6 @@ Error types will then be provided in your response so client can easier identify
 [GA Image]: https://github.com/simPod/GraphQL-Utils/workflows/CI/badge.svg
 
 [GA Link]: https://github.com/simPod/GraphQL-Utils/actions?query=workflow%3A%22CI%22+branch%3A0.7.x
-
-[Shepherd Image]: https://shepherd.dev/github/simPod/GraphQL-Utils/coverage.svg
-
-[Shepherd Link]: https://shepherd.dev/github/simPod/GraphQL-Utils
 
 [Coverage Image]: https://codecov.io/gh/simPod/GraphQL-Utils/branch/0.7.x/graph/badge.svg
 
