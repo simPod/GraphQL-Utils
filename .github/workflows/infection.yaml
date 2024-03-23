@@ -26,7 +26,7 @@ jobs:
         uses: "ramsey/composer-install@v2"
 
       - name: Run Infection
-        run: vendor/bin/roave-infection-static-analysis-plugin --threads=$(nproc)
+        run: vendor/bin/infection --threads=$(nproc)
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
 
