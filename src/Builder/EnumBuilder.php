@@ -12,8 +12,8 @@ use function preg_match;
 /**
  * @see               EnumType
  *
- * @psalm-import-type EnumValues from EnumType
- * @psalm-import-type EnumTypeConfig from EnumType
+ * @phpstan-import-type EnumValues from EnumType
+ * @phpstan-import-type EnumTypeConfig from EnumType
  */
 class EnumBuilder extends TypeBuilder
 {
@@ -60,7 +60,7 @@ class EnumBuilder extends TypeBuilder
         return $this;
     }
 
-    /** @psalm-return EnumTypeConfig */
+    /** @phpstan-return EnumTypeConfig */
     public function build(): array
     {
         return [

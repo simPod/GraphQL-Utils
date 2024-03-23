@@ -14,14 +14,14 @@ use ReflectionProperty;
  * @see               InputObjectField
  * @see               Argument
  *
- * @psalm-import-type FieldResolver from Executor
- * @psalm-import-type InputObjectFieldConfig from InputObjectField
- * @psalm-import-type ArgumentListConfig from Argument
- * @psalm-import-type ArgumentType from Argument
+ * @phpstan-import-type FieldResolver from Executor
+ * @phpstan-import-type InputObjectFieldConfig from InputObjectField
+ * @phpstan-import-type ArgumentListConfig from Argument
+ * @phpstan-import-type ArgumentType from Argument
  */
 class InputFieldBuilder
 {
-    /** @psalm-var ArgumentType */
+    /** @phpstan-var ArgumentType */
     private mixed $type;
 
     private string|null $deprecationReason = null;
@@ -30,14 +30,14 @@ class InputFieldBuilder
 
     private mixed $defaultValue;
 
-    /** @psalm-param ArgumentType $type */
+    /** @phpstan-param ArgumentType $type */
     final private function __construct(private string $name, $type)
     {
         $this->type = $type;
     }
 
     /**
-     * @psalm-param ArgumentType $type
+     * @phpstan-param ArgumentType $type
      *
      * @return static
      */
@@ -70,7 +70,7 @@ class InputFieldBuilder
         return $this;
     }
 
-    /** @psalm-return InputObjectFieldConfig */
+    /** @phpstan-return InputObjectFieldConfig */
     public function build(): array
     {
         $config = [
@@ -82,7 +82,6 @@ class InputFieldBuilder
 
         $property = new ReflectionProperty($this, 'defaultValue');
         if ($property->isInitialized($this)) {
-            /** @psalm-suppress MixedAssignment */
             $config['defaultValue'] = $this->defaultValue;
         }
 

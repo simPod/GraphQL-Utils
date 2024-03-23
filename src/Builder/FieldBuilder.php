@@ -13,35 +13,35 @@ use GraphQL\Type\Definition\FieldDefinition;
  * @see FieldDefinition
  * @see Argument
  *
- * @psalm-import-type FieldResolver from Executor
- * @psalm-import-type FieldDefinitionConfig from FieldDefinition
- * @psalm-import-type FieldType from FieldDefinition
- * @psalm-import-type ArgumentListConfig from Argument
- * @psalm-import-type ArgumentType from Argument
+ * @phpstan-import-type FieldResolver from Executor
+ * @phpstan-import-type FieldDefinitionConfig from FieldDefinition
+ * @phpstan-import-type FieldType from FieldDefinition
+ * @phpstan-import-type ArgumentListConfig from Argument
+ * @phpstan-import-type ArgumentType from Argument
  */
 class FieldBuilder
 {
-    /** @psalm-var FieldType */
+    /** @phpstan-var FieldType */
     private mixed $type;
 
     private string|null $description = null;
 
     private string|null $deprecationReason = null;
 
-    /** @psalm-var FieldResolver|null */
+    /** @phpstan-var FieldResolver|null */
     private $resolve;
 
-    /** @psalm-var (ArgumentListConfig&array)|null */
+    /** @phpstan-var (ArgumentListConfig&array)|null */
     private array|null $args = null;
 
-    /** @psalm-param FieldType $type */
+    /** @phpstan-param FieldType $type */
     final private function __construct(private string $name, $type)
     {
         $this->type = $type;
     }
 
     /**
-     * @psalm-param FieldType $type
+     * @phpstan-param FieldType $type
      *
      * @return static
      */
@@ -59,7 +59,7 @@ class FieldBuilder
     }
 
     /**
-     * @psalm-param ArgumentType $type
+     * @phpstan-param ArgumentType $type
      *
      * @return $this
      */
@@ -81,12 +81,10 @@ class FieldBuilder
         }
 
         if ($defaultValue !== null) {
-            /** @psalm-suppress MixedAssignment */
             $value['defaultValue'] = $defaultValue;
         }
 
         if ($deprecationReason !== null) {
-            /** @psalm-suppress MixedAssignment */
             $value['deprecationReason'] = $deprecationReason;
         }
 
@@ -96,7 +94,7 @@ class FieldBuilder
     }
 
     /**
-     * @psalm-param FieldResolver $resolver
+     * @phpstan-param FieldResolver $resolver
      *
      * @return $this
      */
@@ -115,7 +113,7 @@ class FieldBuilder
         return $this;
     }
 
-    /** @psalm-return FieldDefinitionConfig */
+    /** @phpstan-return FieldDefinitionConfig */
     public function build(): array
     {
         return [

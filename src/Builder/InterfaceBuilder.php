@@ -10,7 +10,7 @@ use GraphQL\Type\Definition\InterfaceType;
 /**
  * @see               InterfaceType
  *
- * @psalm-import-type InterfaceConfig from InterfaceType
+ * @phpstan-import-type InterfaceConfig from InterfaceType
  */
 class InterfaceBuilder extends TypeBuilder
 {
@@ -61,7 +61,7 @@ class InterfaceBuilder extends TypeBuilder
         return $this;
     }
 
-    /** @psalm-return InterfaceConfig */
+    /** @phpstan-return InterfaceConfig */
     public function build(): array
     {
         return [

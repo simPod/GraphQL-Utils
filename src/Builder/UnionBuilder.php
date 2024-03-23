@@ -13,27 +13,27 @@ use GraphQL\Type\Definition\UnionType;
  * @see               ObjectType
  * @see               UnionType
  *
- * @psalm-import-type ResolveType from AbstractType
- * @psalm-import-type ObjectTypeReference from UnionType
- * @psalm-import-type UnionConfig from UnionType
- * @psalm-type Types iterable<ObjectTypeReference>|callable(): iterable<ObjectTypeReference>
+ * @phpstan-import-type ResolveType from AbstractType
+ * @phpstan-import-type ObjectTypeReference from UnionType
+ * @phpstan-import-type UnionConfig from UnionType
+ * @phpstan-type Types iterable<ObjectTypeReference>|callable(): iterable<ObjectTypeReference>
  */
 class UnionBuilder extends TypeBuilder
 {
-    /** @psalm-var ResolveType|null */
+    /** @phpstan-var ResolveType|null */
     private $resolveType = null;
 
-    /** @psalm-var Types */
+    /** @phpstan-var Types */
     private $types;
 
-    /** @psalm-param Types $types */
+    /** @phpstan-param Types $types */
     final private function __construct(iterable|callable $types, private string|null $name = null)
     {
         $this->types = $types;
     }
 
     /**
-     * @psalm-param Types $types
+     * @phpstan-param Types $types
      *
      * @return static
      */
@@ -43,7 +43,7 @@ class UnionBuilder extends TypeBuilder
     }
 
     /**
-     * @psalm-param ResolveType $resolveType
+     * @phpstan-param ResolveType $resolveType
      *
      * @return $this
      */
@@ -54,7 +54,7 @@ class UnionBuilder extends TypeBuilder
         return $this;
     }
 
-    /** @psalm-return UnionConfig */
+    /** @phpstan-return UnionConfig */
     public function build(): array
     {
         return [

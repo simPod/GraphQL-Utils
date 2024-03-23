@@ -9,8 +9,8 @@ use GraphQL\Type\Definition\InputObjectType;
 /**
  * @see               InputObjectType
  *
- * @psalm-import-type FieldConfig from InputObjectType
- * @psalm-import-type InputObjectConfig from InputObjectType
+ * @phpstan-import-type FieldConfig from InputObjectType
+ * @phpstan-import-type InputObjectConfig from InputObjectType
  */
 class InputObjectBuilder extends TypeBuilder
 {
@@ -39,7 +39,7 @@ class InputObjectBuilder extends TypeBuilder
         return $this;
     }
 
-    /** @psalm-return InputObjectConfig */
+    /** @phpstan-return InputObjectConfig */
     public function build(): array
     {
         return [
