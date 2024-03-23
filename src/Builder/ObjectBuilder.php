@@ -15,8 +15,8 @@ use function is_callable;
  * @see               FieldDefinition
  * @see               ObjectType
  *
- * @psalm-import-type FieldDefinitionConfig from FieldDefinition
- * @psalm-import-type ObjectConfig from ObjectType
+ * @phpstan-import-type FieldDefinitionConfig from FieldDefinition
+ * @phpstan-import-type ObjectConfig from ObjectType
  */
 class ObjectBuilder extends TypeBuilder
 {
@@ -94,7 +94,7 @@ class ObjectBuilder extends TypeBuilder
         return $this;
     }
 
-    /** @psalm-return ObjectConfig */
+    /** @phpstan-return ObjectConfig */
     public function build(): array
     {
         return [
