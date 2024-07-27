@@ -4,21 +4,21 @@
     xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
     beStrictAboutChangesToGlobalState="true"
     beStrictAboutOutputDuringTests="true"
-    beStrictAboutTodoAnnotatedTests="true"
     executionOrder="random"
     colors="true"
     bootstrap="tests/bootstrap.php"
 >
-    <testsuites>
-        <testsuite name="Test Suite">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-    <coverage/>
+  <testsuites>
+    <testsuite name="Test Suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
 
-    <source>
-        <include>
-            <directory>src</directory>
-        </include>
-    </source>
+  <coverage/>
+
+  <source>
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
 </phpunit>
