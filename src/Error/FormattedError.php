@@ -7,6 +7,7 @@ namespace SimPod\GraphQLUtils\Error;
 use GraphQL\Error\DebugFlag;
 use Throwable;
 
+/** @deprecated Use {@see ProvidesExtensions} */
 class FormattedError extends \GraphQL\Error\FormattedError
 {
     public static function createFromException(Throwable $exception, int $debugFlag = DebugFlag::NONE, string|null $internalErrorMessage = null): array
