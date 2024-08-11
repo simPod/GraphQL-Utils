@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
+use BackedEnum;
 use GraphQL\Executor\Executor;
 use GraphQL\Type\Definition\Argument;
 use GraphQL\Type\Definition\FieldDefinition;
@@ -35,7 +36,7 @@ class FieldBuilder
     private array|null $args = null;
 
     /** @phpstan-param FieldType $type */
-    final private function __construct(private string $name, $type)
+    final private function __construct(private BackedEnum|string $name, $type)
     {
         $this->type = $type;
     }
@@ -45,7 +46,7 @@ class FieldBuilder
      *
      * @return static
      */
-    public static function create(string $name, $type): self
+    public static function create(BackedEnum|string $name, $type): self
     {
         return new static($name, $type);
     }
@@ -118,7 +119,7 @@ class FieldBuilder
     {
         return [
             'args' => $this->args,
-            'name' => $this->name,
+            'name' => $this->name instanceof BackedEnum ? (string) $this->name->value : $this->name,
             'description' => $this->description,
             'deprecationReason' => $this->deprecationReason,
             'resolve' => $this->resolve,
