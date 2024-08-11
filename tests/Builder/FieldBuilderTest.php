@@ -9,6 +9,7 @@ use GraphQL\Type\Definition\Type;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use SimPod\GraphQLUtils\Builder\FieldBuilder;
+use SimPod\GraphQLUtils\Tests\Builder\fixture\Fields;
 
 final class FieldBuilderTest extends TestCase
 {
@@ -45,5 +46,13 @@ final class FieldBuilderTest extends TestCase
         self::assertSame('Argument Description', $args['arg1']['description']);
         self::assertSame('Reason', $args['arg1']['deprecationReason']);
         self::assertSame(1, $args['arg1']['defaultValue']);
+    }
+
+    public function testCreateFromEnum(): void
+    {
+        $field = FieldBuilder::create(Fields::Field1, Type::string())
+            ->build();
+
+        self::assertSame('Field1', $field['name']);
     }
 }
