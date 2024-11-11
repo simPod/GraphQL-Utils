@@ -8,6 +8,9 @@ use PHPUnit\Framework\TestCase;
 use SimPod\GraphQLUtils\Builder\EnumBuilder;
 use SimPod\GraphQLUtils\Exception\InvalidArgument;
 
+use function assert;
+use function is_array;
+
 final class EnumBuilderTest extends TestCase
 {
     public function testCreate(): void
@@ -31,16 +34,20 @@ final class EnumBuilderTest extends TestCase
         self::assertCount(4, $values);
 
         self::assertArrayHasKey('EnumName', $values);
+        assert(is_array($values['EnumName']));
         self::assertSame('Value1', $values['EnumName']['value']);
 
         self::assertArrayHasKey('Value2', $values);
+        assert(is_array($values['Value2']));
         self::assertSame('Value2', $values['Value2']['value']);
         self::assertSame('Value 2 Description', $values['Value2']['description']);
 
         self::assertArrayHasKey('Numeric', $values);
+        assert(is_array($values['Numeric']));
         self::assertSame(0, $values['Numeric']['value']);
 
         self::assertArrayHasKey('Deprec', $values);
+        assert(is_array($values['Deprec']));
         self::assertSame('Deprecated', $values['Deprec']['deprecationReason']);
     }
 
