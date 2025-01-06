@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace SimPod\GraphQLUtils\Builder;
 
+use GraphQL\Type\Definition\AbstractType;
 use GraphQL\Type\Definition\FieldDefinition;
 use GraphQL\Type\Definition\InterfaceType;
 
 /**
- * @see               InterfaceType
- *
  * @phpstan-import-type InterfaceConfig from InterfaceType
+ * @phpstan-import-type ResolveType from AbstractType
  */
 class InterfaceBuilder extends TypeBuilder
 {
     /** @var InterfaceType[] */
     private array $interfaces = [];
 
-    /** @var callable|null */
+    /** @var ResolveType|null */
     private $resolveType;
 
     /** @var array<FieldDefinition|array<string, mixed>>|callable():array<FieldDefinition|array<string, mixed>> */
@@ -53,7 +53,11 @@ class InterfaceBuilder extends TypeBuilder
         return $this;
     }
 
-    /** @return $this */
+    /**
+     * @param ResolveType $resolveType
+     *
+     * @return $this
+     */
     public function setResolveType(callable $resolveType): self
     {
         $this->resolveType = $resolveType;

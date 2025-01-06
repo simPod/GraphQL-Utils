@@ -39,7 +39,7 @@ final class InterfaceBuilderTest extends TestCase
                 ],
             )
             ->setResolveType(
-                static fn (bool $value): Type => $value ? Type::string() : Type::int(),
+                static fn (mixed $value) => $value === true ? 'type' : null,
             )
             ->build();
 
@@ -55,8 +55,8 @@ final class InterfaceBuilderTest extends TestCase
         self::assertCount(1, $interface['fields']);
         self::assertArrayHasKey('resolveType', $interface);
         self::assertIsCallable($interface['resolveType']);
-        self::assertSame(Type::string(), $interface['resolveType'](true, null, $resolveInfo));
-        self::assertSame(Type::int(), $interface['resolveType'](false, null, $resolveInfo));
+        self::assertSame('type', $interface['resolveType'](true, null, $resolveInfo));
+        self::assertNull($interface['resolveType'](false, null, $resolveInfo));
     }
 
     public function testInvalidValue(): void
