@@ -18,7 +18,7 @@ final class EnumBuilderTest extends TestCase
         $name = 'SomeEnum';
 
         $builder = EnumBuilder::create($name);
-        $object  = $builder
+        $object = $builder
             ->addValue('Value1', 'EnumName')
             ->addValue('Value2', null, 'Value 2 Description')
             ->addValue(0, 'Numeric', 'Value 2 Description')

@@ -21,7 +21,11 @@ final class InvalidArgument extends Exception implements ClientAware
 
     public static function invalidNameFormat(string $invalidName): self
     {
-        return new self(sprintf('Name "%s" does not match pattern "%s"', $invalidName, TypeBuilder::VALID_NAME_PATTERN));
+        return new self(sprintf(
+            'Name "%s" does not match pattern "%s"',
+            $invalidName,
+            TypeBuilder::VALID_NAME_PATTERN,
+        ));
     }
 
     public static function valueNotIso8601Compliant(mixed $invalidValue): self

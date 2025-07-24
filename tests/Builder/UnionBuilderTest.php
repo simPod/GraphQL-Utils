@@ -46,7 +46,7 @@ final class UnionBuilderTest extends TestCase
         self::assertIsCallable($union['resolveType']);
 
         $resolveInfoReflection = new ReflectionClass(ResolveInfo::class);
-        $resolveInfo           = $resolveInfoReflection->newInstanceWithoutConstructor();
+        $resolveInfo = $resolveInfoReflection->newInstanceWithoutConstructor();
 
         self::assertSame($typeA, $union['resolveType'](true, null, $resolveInfo));
         self::assertSame($typeB, $union['resolveType'](false, null, $resolveInfo));

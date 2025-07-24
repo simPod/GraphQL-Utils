@@ -18,7 +18,7 @@ final class InterfaceBuilderTest extends TestCase
 {
     public function testCreate(): void
     {
-        $name        = 'InterfaceA';
+        $name = 'InterfaceA';
         $description = 'Description';
 
         $interfaceA = new class () extends InterfaceType {

@@ -17,8 +17,8 @@ final class InputObjectBuilderTest extends TestCase
     public function testCreate(): void
     {
         $description = 'To the sichuan-style nachos add ghee, noodles, buttermilk and heated herring.';
-        $name        = 'SomeType';
-        $interface   = new class () extends InterfaceType {
+        $name = 'SomeType';
+        $interface = new class () extends InterfaceType {
             public function __construct()
             {
                 $builder = InterfaceBuilder::create('InterfaceA');
@@ -31,7 +31,7 @@ final class InputObjectBuilderTest extends TestCase
         };
 
         $builder = InputObjectBuilder::create($name);
-        $object  = $builder
+        $object = $builder
             ->setDescription($description)
             ->setFields(
                 [

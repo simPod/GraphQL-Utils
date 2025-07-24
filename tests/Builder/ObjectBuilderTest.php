@@ -17,8 +17,8 @@ final class ObjectBuilderTest extends TestCase
     public function testCreate(): void
     {
         $description = 'To the sichuan-style nachos add ghee, noodles, buttermilk and heated herring.';
-        $name        = 'SomeType';
-        $interface   = new class () extends InterfaceType {
+        $name = 'SomeType';
+        $interface = new class () extends InterfaceType {
             public function __construct()
             {
                 $builder = InterfaceBuilder::create('InterfaceA');
@@ -31,7 +31,7 @@ final class ObjectBuilderTest extends TestCase
         };
 
         $builder = ObjectBuilder::create($name);
-        $object  = $builder
+        $object = $builder
             ->setDescription($description)
             ->addInterface($interface)
             ->setFields(
@@ -56,7 +56,7 @@ final class ObjectBuilderTest extends TestCase
     public function testAddFields(): void
     {
         $builder = ObjectBuilder::create('Name');
-        $object  = $builder
+        $object = $builder
             ->setFields([
                 FieldBuilder::create('SomeField', Type::string())->build(),
             ])
@@ -70,7 +70,7 @@ final class ObjectBuilderTest extends TestCase
     public function testAddFieldsToCallable(): void
     {
         $builder = ObjectBuilder::create('Name');
-        $object  = $builder
+        $object = $builder
             ->setFields(static fn () => [
                 FieldBuilder::create('SomeField', Type::string())->build(),
             ])
