@@ -17,6 +17,8 @@ class InputObjectBuilder extends TypeBuilder
     /** @var callable():array<FieldConfig>|array<FieldConfig> */
     private $fields = [];
 
+    private bool $isOneOf = false;
+
     final private function __construct(private string|null $name)
     {
     }
@@ -39,6 +41,13 @@ class InputObjectBuilder extends TypeBuilder
         return $this;
     }
 
+    public function isOneOf(): self
+    {
+        $this->isOneOf = true;
+
+        return $this;
+    }
+
     /** @phpstan-return InputObjectConfig */
     public function build(): array
     {
@@ -46,6 +55,7 @@ class InputObjectBuilder extends TypeBuilder
             'name' => $this->name,
             'description' => $this->description,
             'fields' => $this->fields,
+            'isOneOf' => $this->isOneOf,
         ];
     }
 }

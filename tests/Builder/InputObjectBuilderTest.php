@@ -39,6 +39,7 @@ final class InputObjectBuilderTest extends TestCase
                     new InputObjectField(InputFieldBuilder::create('Another', Type::string())->build()),
                 ],
             )
+            ->isOneOf()
             ->build();
 
         self::assertArrayHasKey('name', $object);
@@ -47,5 +48,7 @@ final class InputObjectBuilderTest extends TestCase
         self::assertSame($description, $object['description']);
         self::assertIsArray($object['fields']);
         self::assertCount(2, $object['fields']);
+        self::assertArrayHasKey('isOneOf', $object);
+        self::assertTrue($object['isOneOf']);
     }
 }
