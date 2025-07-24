@@ -10,8 +10,11 @@ use Throwable;
 /** @deprecated Use {@see ProvidesExtensions} */
 class FormattedError extends \GraphQL\Error\FormattedError
 {
-    public static function createFromException(Throwable $exception, int $debugFlag = DebugFlag::NONE, string|null $internalErrorMessage = null): array
-    {
+    public static function createFromException(
+        Throwable $exception,
+        int $debugFlag = DebugFlag::NONE,
+        string|null $internalErrorMessage = null,
+    ): array {
         $arrayError = parent::createFromException($exception, $debugFlag, $internalErrorMessage);
 
         if ($exception instanceof \GraphQL\Error\Error && $exception->getPrevious() instanceof Error) {

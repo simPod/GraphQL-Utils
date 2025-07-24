@@ -29,6 +29,7 @@ final class FormattedErrorTest extends TestCase
         self::assertSame(
             [
                 'message' => 'Internal server error',
+                // phpcs:ignore SlevomatCodingStandard.Files.LineLength.LineTooLong
                 'extensions' => ['debugMessage' => 'When smashing sun-dried shrimps, be sure they are room temperature.'],
             ],
             FormattedError::createFromException($exception, DebugFlag::INCLUDE_DEBUG_MESSAGE),

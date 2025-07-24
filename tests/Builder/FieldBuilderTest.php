@@ -32,7 +32,7 @@ final class FieldBuilderTest extends TestCase
         self::assertIsCallable($field['resolve']);
 
         $resolveInfoReflection = new ReflectionClass(ResolveInfo::class);
-        $resolveInfo           = $resolveInfoReflection->newInstanceWithoutConstructor();
+        $resolveInfo = $resolveInfoReflection->newInstanceWithoutConstructor();
 
         self::assertSame('Resolver result', $field['resolve'](null, [], null, $resolveInfo));
 

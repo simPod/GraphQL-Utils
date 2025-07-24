@@ -68,13 +68,13 @@ class ObjectBuilder extends TypeBuilder
     {
         if (is_callable($this->fields)) {
             $originalFields = $this->fields;
-            $closure        = static function () use ($field, $originalFields): array {
-                $originalFields   = $originalFields();
+            $closure = static function () use ($field, $originalFields): array {
+                $originalFields = $originalFields();
                 $originalFields[] = $field;
 
                 return $originalFields;
             };
-            $this->fields   = $closure;
+            $this->fields = $closure;
         } else {
             $this->fields[] = $field;
         }
