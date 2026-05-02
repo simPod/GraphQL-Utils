@@ -10,12 +10,13 @@
         }
     ],
     "config": {
-        "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "infection/extension-installer": true,
             "phpstan/extension-installer": true
-        }
+        },
+        "lock": false,
+        "sort-packages": true
     },
     "require": {
         "php": "^8.4",
