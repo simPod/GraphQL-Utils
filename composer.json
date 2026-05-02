@@ -15,7 +15,8 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "infection/extension-installer": true,
             "phpstan/extension-installer": true
-        }
+        },
+        "lock": false
     },
     "require": {
         "php": "^8.4",
