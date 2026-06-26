@@ -42,10 +42,15 @@ final class FieldBuilderTest extends TestCase
         $args = $field['args'];
         self::assertArrayHasKey('arg1', $args);
         self::assertIsArray($args['arg1']);
-        self::assertSame(Type::int(), $args['arg1']['type']);
-        self::assertSame('Argument Description', $args['arg1']['description']);
-        self::assertSame('Reason', $args['arg1']['deprecationReason']);
-        self::assertSame(1, $args['arg1']['defaultValue']);
+        $arg = $args['arg1'];
+        self::assertArrayHasKey('type', $arg);
+        self::assertSame(Type::int(), $arg['type']);
+        self::assertArrayHasKey('description', $arg);
+        self::assertSame('Argument Description', $arg['description']);
+        self::assertArrayHasKey('deprecationReason', $arg);
+        self::assertSame('Reason', $arg['deprecationReason']);
+        self::assertArrayHasKey('defaultValue', $arg);
+        self::assertSame(1, $arg['defaultValue']);
     }
 
     public function testCreateFromEnum(): void
